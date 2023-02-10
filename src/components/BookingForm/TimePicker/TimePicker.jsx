@@ -4,7 +4,7 @@ function TimePicker() {
   return (
     <>
       <label htmlFor="res-time">Choose time</label>
-      <select name="time" id="res-time ">
+      <select name="res-time" id="res-time">
         <option>17:00</option>
         <option>18:00</option>
         <option>19:00</option>
