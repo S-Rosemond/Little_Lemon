@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
+import getISOStringToday from "../../util/getISOString";
 import "./BookingForm.css";
+import DatePicker from "./DatePicker/DatePicker";
 
 function BookingForm() {
-  const [dateInput, setDateInput] = useState({ initialValue: "", value: "" });
+  const [dateInput, setDateInput] = useState({
+    initialValue: "",
+    value: undefined,
+  });
 
   const handleChange = (e) =>
     setDateInput({ ...dateInput, value: e.target.value });
 
   useEffect(() => {
-    const date = new Date();
-    const today = date.toISOString().slice(0, 10);
+    const today = getISOStringToday().slice(0, 10);
     setDateInput({ ...dateInput, initialValue: today });
   }, [dateInput.initialValue]);
   return (
     <form className="booking-form">
-      <label htmlFor="res-date">Choose date</label>
-      <input
-        type="date"
-        id="res-date"
-        value={dateInput.value || dateInput.initialValue}
-        onChange={handleChange}
-      />
+      <DatePicker handleChange={handleChange} dateInput={dateInput} />
       <label htmlFor="res-time">Choose time</label>
       <select id="res-time ">
         <option>17:00</option>
