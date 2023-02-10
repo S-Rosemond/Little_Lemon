@@ -23,3 +23,13 @@ describe("Booking Form Calendar", () => {
     expect(calendarInput.value).toBe("2023-02-22");
   });
 });
+
+describe("Booking Form Time Picker", () => {
+  const handleChange = jest.fn();
+  render(<BookingForm handleChange={handleChange} />);
+  const timeInput = screen.getByLabelText("Choose time");
+
+  test("Should render calendar label and input", () => {
+    expect(timeInput).toBeInTheDocument();
+  });
+});
