@@ -27,6 +27,8 @@ describe("Booking Form Calendar", () => {
   test("Should have today's date as default value", () => {
     const calendarInput = screen.getByLabelText("Choose date");
     const today = getISOStringToday().slice(0, 10);
+    // WORKS WITH MANUAL DATE
+    // expect(calendarInput.value).toBe("2023-02-10");
     expect(calendarInput.value).toBe(today);
   });
 
@@ -70,14 +72,49 @@ describe("Booking Form Time Picker", () => {
     fireEvent.change(timeInput, { target: { value: "20:00" } });
     expect(timeInput.value).toBe("20:00");
   });
+
+  test("Should change time by selecting an option", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    // too similar to fireEvent.change
+    userEvent.selectOptions(timeInput, ["19:00"]);
+    expect(timeInput.value).toBe("19:00");
+  });
 });
 
-// describe("Booking Form Guest Picker", () => {
-//   const handleChange = jest.fn();
-//   render(<BookingForm handleChange={handleChange} />);
-//   const guestInput = screen.getByLabelText(/Number of guests/i);
+describe("Booking Form Guest Picker", () => {
+  const handleChange = jest.fn();
+  let guestInput;
+  beforeEach(() => {
+    render(<BookingForm handleChange={handleChange} />);
+    guestInput = screen.getByLabelText(/Number of guests/i);
+  });
 
-//   test("Should render guest picker and input", () => {
-//     expect(guestInput).toBeInTheDocument();
-//   });
-// });
+  test("Should render guest picker and input", () => {
+    expect(guestInput).toBeInTheDocument();
+  });
+
+  test("Should have type of number", () => {
+    expect(guestInput).toHaveAttribute("type", "number");
+  });
+
+  test("Should have id of guests", () => {
+    expect(guestInput).toHaveAttribute("id", "guests");
+  });
+
+  test("Should not be a valid element when entering out of bound minimum", () => {
+    // 100% works and correct logic, passing invalid value = invalid element
+    fireEvent.change(guestInput, { target: { value: 0 } });
+    expect(guestInput).not.toBeValid();
+  });
+  test("Should not be a valid element", () => {
+    // 100% works and correct logic, passing invalid value = invalid element
+    fireEvent.change(guestInput, { target: { value: 7 } });
+    expect(guestInput).toBeValid();
+    expect(guestInput.value).toBe("7");
+  });
+
+  test("Should not be a valid element when entering out of bound maximum", () => {
+    fireEvent.change(guestInput, { target: { value: 11 } });
+    expect(guestInput).not.toBeValid();
+  });
+});

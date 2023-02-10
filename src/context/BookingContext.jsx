@@ -3,6 +3,7 @@ import getISOStringToday from "../util/getISOString";
 
 const BookingFormContext = createContext();
 
+// may use reducer
 const BookingFormProvider = ({ children }) => {
   const [dateInput, setDateInput] = useState({
     initialValue: "",
