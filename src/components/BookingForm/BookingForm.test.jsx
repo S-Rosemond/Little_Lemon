@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import getISOStringToday from "../../util/getISOString";
 import BookingForm from "./BookingForm";
 
-describe("Booking Form Calendar", () => {
+describe("Booking Form Calendar (Date Picker)", () => {
   const handleChange = jest.fn();
   beforeEach(() => {
     render(<BookingForm handleChange={handleChange} />);
@@ -60,10 +60,10 @@ describe("Booking Form Time Picker", () => {
     expect(timeInput.value).toBe("17:00");
   });
 
-  test("Should not change time to selected value", () => {
+  test("Should not change time to invalid value", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
     fireEvent.change(timeInput, { target: { value: "16:00" } });
-    // 16:00 is not an option so no change is expected thus zero length
+    // 16:00 is not a valid option so no change is expected thus zero length
     expect(timeInput.value).toHaveLength(0);
   });
 
@@ -118,3 +118,36 @@ describe("Booking Form Guest Picker", () => {
     expect(guestInput).not.toBeValid();
   });
 });
+
+describe("Booking Form Occasion Picker", () => {
+  const handleChange = jest.fn();
+  let occasionInput;
+  beforeEach(() => {
+    render(<BookingForm handleChange={handleChange} />);
+    occasionInput = screen.getByLabelText(/Occasion/i);
+  });
+
+  test("Should render label and input in document", () => {
+    expect(occasionInput).toBeInTheDocument();
+  });
+
+  test("Should have id of occasion", () => {
+    expect(occasionInput).toHaveAttribute("id", "occasion");
+  });
+
+  test("Should have default value of Birthday", () => {
+    expect(occasion.value).toBe("Birthday");
+  });
+
+  test("Should not change occasion to invalid value", () => {
+    fireEvent.change(occasion, { target: { value: "Party" } });
+    expect(occasion.value).toHaveLength(0);
+  });
+
+  test("Should change occasion to valid value", () => {
+    fireEvent.change(occasion, { target: { value: "Anniversary" } });
+    expect(occasion.value).toBe("Anniversary");
+  });
+});
+
+// Todo submit form
