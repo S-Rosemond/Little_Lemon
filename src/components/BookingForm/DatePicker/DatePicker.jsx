@@ -1,6 +1,9 @@
 import React from "react";
+import { useBookingFormContext } from "../../../context/BookingContext";
 
-function DatePicker({ handleChange, dateInput }) {
+function DatePicker() {
+  const { datePicker } = useBookingFormContext();
+  const { handleDateChange, dateInput } = datePicker;
   return (
     <>
       <label htmlFor="res-date">Choose date</label>
@@ -8,7 +11,7 @@ function DatePicker({ handleChange, dateInput }) {
         type="date"
         id="res-date"
         value={dateInput.value ?? dateInput.initialValue}
-        onChange={handleChange}
+        onChange={handleDateChange}
       />
     </>
   );
