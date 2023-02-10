@@ -1,7 +1,12 @@
 import "./App.css";
+import BookingForm from "./components/BookingForm/BookingForm";
 
 function App() {
-  return <div className="App">Homepage</div>;
+  return (
+    <>
+      <BookingForm />
+    </>
+  );
 }
 
 export default App;
