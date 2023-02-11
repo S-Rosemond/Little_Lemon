@@ -79,6 +79,33 @@ describe("Booking Form Time Picker", () => {
     userEvent.selectOptions(timeInput, ["19:00"]);
     expect(timeInput.value).toBe("19:00");
   });
+
+  test("Should have specified select option 17:00", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    userEvent.selectOptions(timeInput, [screen.getByText("17:00")]);
+    expect(screen.getByText("17:00").selected).toBe(true);
+  });
+
+  test("Should have specified select option 18:00", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    userEvent.selectOptions(timeInput, [screen.getByText("18:00")]);
+    expect(screen.getByText("18:00").selected).toBe(true);
+  });
+  test("Should have specified select option 19:00", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    userEvent.selectOptions(timeInput, [screen.getByText("19:00")]);
+    expect(screen.getByText("19:00").selected).toBe(true);
+  });
+  test("Should have specified select option 20:00", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    userEvent.selectOptions(timeInput, [screen.getByText("20:00")]);
+    expect(screen.getByText("20:00").selected).toBe(true);
+  });
+  test("Should have specified select option 21:00", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    userEvent.selectOptions(timeInput, [screen.getByText("21:00")]);
+    expect(screen.getByText("21:00").selected).toBe(true);
+  });
 });
 
 describe("Booking Form Guest Picker", () => {
@@ -106,8 +133,7 @@ describe("Booking Form Guest Picker", () => {
     fireEvent.change(guestInput, { target: { value: 0 } });
     expect(guestInput).not.toBeValid();
   });
-  test("Should not be a valid element", () => {
-    // 100% works and correct logic, passing invalid value = invalid element
+  test("Should be a valid element", () => {
     fireEvent.change(guestInput, { target: { value: 7 } });
     expect(guestInput).toBeValid();
     expect(guestInput.value).toBe("7");
@@ -151,3 +177,15 @@ describe("Booking Form Occasion Picker", () => {
 });
 
 // Todo submit form
+describe("Booking Form Submit", () => {
+  const handleSubmit = jest.fn();
+  let submitButton;
+  beforeEach(() => {
+    render(<BookingForm onSubmit={handleSubmit} />);
+    submitButton = screen.getByTestId("submit-button");
+  });
+
+  test("Should be in document with test id submit-button", () => {
+    expect(submitButton).toBeInTheDocument();
+  });
+});

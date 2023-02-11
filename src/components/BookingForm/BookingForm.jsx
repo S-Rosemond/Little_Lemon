@@ -13,7 +13,11 @@ function BookingForm() {
         <TimePicker />
         <GuestPicker />
         <OccasionPicker />
-        <input type="submit" value="Make Your reservation" />
+        <input
+          data-testid="submit-button"
+          type="submit"
+          value="Make Your reservation"
+        />
       </form>
     </BookingFormProvider>
   );
