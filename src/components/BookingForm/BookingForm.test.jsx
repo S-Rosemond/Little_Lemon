@@ -162,17 +162,17 @@ describe("Booking Form Occasion Picker", () => {
   });
 
   test("Should have default value of Birthday", () => {
-    expect(occasion.value).toBe("Birthday");
+    expect(occasionInput.value).toBe("Birthday");
   });
 
   test("Should not change occasion to invalid value", () => {
-    fireEvent.change(occasion, { target: { value: "Party" } });
-    expect(occasion.value).toHaveLength(0);
+    fireEvent.change(occasionInput, { target: { value: "Party" } });
+    expect(occasionInput.value).toHaveLength(0);
   });
 
   test("Should change occasion to valid value", () => {
-    fireEvent.change(occasion, { target: { value: "Anniversary" } });
-    expect(occasion.value).toBe("Anniversary");
+    fireEvent.change(occasionInput, { target: { value: "Anniversary" } });
+    expect(occasionInput.value).toBe("Anniversary");
   });
 });
 
@@ -187,5 +187,22 @@ describe("Booking Form Submit", () => {
 
   test("Should be in document with test id submit-button", () => {
     expect(submitButton).toBeInTheDocument();
+  });
+
+  test("Should be called with all text properties", () => {
+    const calendarInput = screen.getByLabelText("Choose date");
+    fireEvent.change(calendarInput, { target: { value: "2023-02-22" } });
+
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    fireEvent.change(timeInput, { target: { value: "20:00" } });
+
+    const guestInput = screen.getByLabelText(/Number of guests/i);
+    fireEvent.change(guestInput, { target: { value: 7 } });
+
+    const occasionInput = screen.getByLabelText(/Occasion/i);
+    fireEvent.change(occasion, { target: { value: "Anniversary" } });
+
+    fireEvent.click(submitButton);
+    expect(handleSubmit).toHaveBeenCalledWith({});
   });
 });
