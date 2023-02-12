@@ -18,7 +18,10 @@ function BookingForm() {
       guests: "1",
       date: dateToday,
     },
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => {
+      console.log(values);
+      return values;
+    },
     validationSchema: Yup.object({
       date: Yup.string().required("required"),
       time: Yup.string().required("required"),

@@ -227,7 +227,7 @@ describe("Booking Form Submit", () => {
       occasion: "Anniversary",
     };
 
-    render(<Main onSubmit={handleSubmit} />);
+    render(<Main onSubmit={handleClick} />);
     const submitButton = screen.getByRole("button");
     const timeInput = screen.getByLabelText(/Choose time/i);
     const calendarInput = screen.getByLabelText("Choose date");
