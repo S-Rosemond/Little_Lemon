@@ -213,7 +213,10 @@ describe("Booking Form Occasion Picker", () => {
 
 // Todo submit form
 describe("Booking Form Submit", () => {
-  const onSubmit = jest.fn((values) => values);
+  const submitForm = jest.fn((values) => {
+    let options = { ...values };
+    return options;
+  });
 
   // let submitButton;
   // beforeEach(() => {
@@ -237,7 +240,7 @@ describe("Booking Form Submit", () => {
       occasion: "Anniversary",
     };
 
-    render(<Main onSubmit={onSubmit} />);
+    render(<Main onSubmit={submitForm()} />);
 
     const submitButton = screen.getByRole("button");
     const timeInput = screen.getByLabelText(/Choose time/i);
@@ -255,6 +258,6 @@ describe("Booking Form Submit", () => {
     userEvent.click(screen.getByRole("button"));
 
     // expect(onSubmit).toHaveBeenCalled();
-    expect(onSubmit).toHaveBeenCalledWith(options);
+    expect(submitForm).toHaveBeenCalledWith(options);
   });
 });
