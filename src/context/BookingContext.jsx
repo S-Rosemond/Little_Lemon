@@ -12,17 +12,17 @@ const BookingFormContext = createContext();
 
 // may use reducer
 const BookingFormProvider = ({ children }) => {
-  const [dateToday, setDateToday] = useState("");
+  const [dateToday, setDateToday] = useState(getISOStringToday().slice(0, 10));
 
   const [availableTimes, availableTimesDispatch] = useReducer(
     updateTimes,
     initializeTimes()
   );
 
-  useEffect(() => {
-    const today = getISOStringToday().slice(0, 10);
-    setDateToday(today);
-  }, []);
+  // useEffect(() => {
+  //   const today = getISOStringToday().slice(0, 10);
+  //   setDateToday(today);
+  // }, []);
 
   const options = {
     dateToday,

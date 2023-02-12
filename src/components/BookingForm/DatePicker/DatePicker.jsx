@@ -1,20 +1,17 @@
-import React from "react";
+import { useEffect } from "react";
 import { useBookingFormContext } from "../../../context/BookingContext";
 
 function DatePicker({ formik }) {
   const { dateToday, availableTimesDispatch } = useBookingFormContext();
 
-  const handleDateAndTimeChange = (e) => {
-    e.preventDefault();
-    formik.handleChange(e);
+  useEffect(() => {
     const tempPayload = ["17:30", "18:30", "19:30", "20:30", "21:30", "22:30"];
-    console.log("dateToday:", dateToday, "\n", "formik", formik.values.date);
     if (dateToday === formik.values.date) {
       availableTimesDispatch({ type: "today", payload: tempPayload });
-    } else {
+    } else if (formik.values.date !== undefined) {
       availableTimesDispatch({ type: "updateTimes", payload: tempPayload });
     }
-  };
+  }, [formik.values.date]);
 
   return (
     <>
@@ -24,7 +21,7 @@ function DatePicker({ formik }) {
         id="date"
         name="date"
         value={formik.values.date ?? dateToday}
-        onChange={handleDateAndTimeChange}
+        onChange={formik.handleChange}
       />
     </>
   );

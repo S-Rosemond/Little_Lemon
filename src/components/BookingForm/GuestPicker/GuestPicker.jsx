@@ -1,6 +1,6 @@
 import React from "react";
 
-function GuestPicker({ getFieldProps }) {
+function GuestPicker({ formik }) {
   return (
     <>
       <label htmlFor="guests">Number of guests</label>
@@ -11,7 +11,7 @@ function GuestPicker({ getFieldProps }) {
         min="1"
         max="10"
         id="guests"
-        {...getFieldProps("guests")}
+        {...formik.getFieldProps("guests")}
       />
     </>
   );

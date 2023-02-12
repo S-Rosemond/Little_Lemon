@@ -1,4 +1,6 @@
-import BookingFormProvider from "../../context/BookingContext";
+import BookingFormProvider, {
+  useBookingFormContext,
+} from "../../context/BookingContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./BookingForm.css";
@@ -8,31 +10,41 @@ import OccasionPicker from "./OccasionPicker/OccasionPicker";
 import TimePicker from "./TimePicker/TimePicker";
 
 function BookingForm() {
+  const { dateToday } = useBookingFormContext();
   const formik = useFormik({
     initialValues: {
-      occasion: "",
-      time: "",
-      guests: "",
-      date: undefined,
+      occasion: "Birthday",
+      time: "17:00",
+      guests: "1",
+      date: dateToday,
     },
+    onSubmit: (values) => console.log(values),
     validationSchema: Yup.object({
-      occasion: Yup.string().required(),
-      time: Yup.string().required(),
-      guest: Yup.string().required(),
-      date: Yup.string().required(),
+      date: Yup.string().required("required"),
+      time: Yup.string().required("required"),
+      guest: Yup.number().positive().integer().required("required"),
+      occasion: Yup.string()
+        .oneOf(["Birthday", "Engagement", "Anniversary"])
+        .required("required"),
     }),
   });
-  const { handleSubmit, getFieldProps } = formik;
+  const { handleSubmit, isSubmitting } = formik;
+  // console.log(formik.errors);
+  // console.log(formik.touched);
+  console.log(formik.values);
   return (
-    <BookingFormProvider>
-      <form className="booking-form" onSubmit={handleSubmit}>
-        <DatePicker formik={formik} />
-        <TimePicker getFieldProps={getFieldProps} />
-        <GuestPicker getFieldProps={getFieldProps} />
-        <OccasionPicker getFieldProps={getFieldProps} />
-        <input type="submit" value="Make Your reservation" />
-      </form>
-    </BookingFormProvider>
+    <form className="booking-form" onSubmit={handleSubmit}>
+      <DatePicker formik={formik} />
+      <TimePicker formik={formik} />
+      <GuestPicker formik={formik} />
+      <OccasionPicker formik={formik} />
+      <input
+        disabled={isSubmitting}
+        type="submit"
+        value="Make Your reservation"
+        formik={formik}
+      />
+    </form>
   );
 }
 

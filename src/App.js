@@ -1,10 +1,10 @@
 import "./App.css";
-import BookingForm from "./components/BookingForm/BookingForm";
+import Main from "./components/BookingForm/Main";
 
 function App() {
   return (
     <>
-      <BookingForm />
+      <Main />
     </>
   );
 }
