@@ -1,29 +1,33 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useReducer,
+} from "react";
 import getISOStringToday from "../util/getISOString";
+import updateTimes, { initializeTimes } from "./UpdateTimesReducer";
 
 const BookingFormContext = createContext();
 
 // may use reducer
 const BookingFormProvider = ({ children }) => {
-  const [dateInput, setDateInput] = useState({
-    initialValue: "",
-    value: undefined,
-  });
+  const [dateToday, setDateToday] = useState("");
 
-  const handleDateChange = (e) =>
-    setDateInput({ ...dateInput, value: e.target.value });
+  const [availableTimes, availableTimesDispatch] = useReducer(
+    updateTimes,
+    initializeTimes()
+  );
 
   useEffect(() => {
     const today = getISOStringToday().slice(0, 10);
-    setDateInput((prev) => ({ ...prev, initialValue: today }));
+    setDateToday(today);
   }, []);
 
   const options = {
-    datePicker: {
-      dateInput,
-      handleDateChange,
-    },
-    timePicker: {},
+    dateToday,
+    availableTimes,
+    availableTimesDispatch,
   };
 
   return (
