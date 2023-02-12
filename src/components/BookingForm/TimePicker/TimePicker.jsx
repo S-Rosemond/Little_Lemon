@@ -1,16 +1,12 @@
 import React from "react";
+import TimePickerOptions from "./TimePickerOptions";
 
-function TimePicker() {
+function TimePicker({ getFieldProps }) {
   return (
     <>
-      <label htmlFor="res-time">Choose time</label>
-      <select name="res-time" id="res-time">
-        <option>17:00</option>
-        <option>18:00</option>
-        <option>19:00</option>
-        <option>20:00</option>
-        <option>21:00</option>
-        <option>22:00</option>
+      <label htmlFor="time">Choose time</label>
+      <select name="time" id="time" {...getFieldProps("time")}>
+        <TimePickerOptions />
       </select>
     </>
   );

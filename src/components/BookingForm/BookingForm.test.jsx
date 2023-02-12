@@ -19,9 +19,9 @@ describe("Booking Form Calendar (Date Picker)", () => {
     expect(calendarInput).toHaveAttribute("type", "date");
   });
 
-  test("Should have id of res-date", () => {
+  test("Should have id of date", () => {
     const calendarInput = screen.getByLabelText("Choose date");
-    expect(calendarInput).toHaveAttribute("id", "res-date");
+    expect(calendarInput).toHaveAttribute("id", "date");
   });
 
   test("Should have today's date as default value", () => {
@@ -50,9 +50,9 @@ describe("Booking Form Time Picker", () => {
     expect(timeInput).toBeInTheDocument();
   });
 
-  test("Should have id of res-time", () => {
+  test("Should have id of time", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
-    expect(timeInput).toHaveAttribute("id", "res-time");
+    expect(timeInput).toHaveAttribute("id", "time");
   });
 
   test("Should have default value of 17:00", () => {
@@ -63,8 +63,8 @@ describe("Booking Form Time Picker", () => {
   test("Should not change time to invalid value", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
     fireEvent.change(timeInput, { target: { value: "16:00" } });
-    // 16:00 is not a valid option so no change is expected thus zero length
-    expect(timeInput.value).toHaveLength(0);
+    // 16:00 is not a valid option so no change is expected
+    expect(timeInput.value).toBe("17:00");
   });
 
   test("Should change time to selected value", () => {
@@ -145,6 +145,25 @@ describe("Booking Form Guest Picker", () => {
   });
 });
 
+describe("Booking Form TimePickerOptions", () => {
+  const handleChange = jest.fn();
+  let calendarInput;
+  let timeInput;
+
+  beforeEach(() => {
+    render(<BookingForm handleChange={handleChange} />);
+    calendarInput = screen.getByLabelText("Choose date");
+    timeInput = screen.getByLabelText(/Choose time/i);
+  });
+
+  test("Should change available time when changing date", async () => {
+    fireEvent.change(calendarInput, { target: { value: "2023-02-17" } });
+    userEvent.selectOptions(timeInput, ["18:30"]);
+    screen.debug(timeInput);
+    expect(await timeInput.value.selected).toBe(true);
+  });
+});
+
 describe("Booking Form Occasion Picker", () => {
   const handleChange = jest.fn();
   let occasionInput;
@@ -167,7 +186,8 @@ describe("Booking Form Occasion Picker", () => {
 
   test("Should not change occasion to invalid value", () => {
     fireEvent.change(occasionInput, { target: { value: "Party" } });
-    expect(occasionInput.value).toHaveLength(0);
+    // no change expected
+    expect(occasionInput.value).toBe("Birthday");
   });
 
   test("Should change occasion to valid value", () => {
@@ -182,7 +202,7 @@ describe("Booking Form Submit", () => {
   let submitButton;
   beforeEach(() => {
     render(<BookingForm onSubmit={handleSubmit} />);
-    submitButton = screen.getByTestId("submit-button");
+    submitButton = screen.getByRole("button");
   });
 
   test("Should be in document with test id submit-button", () => {
@@ -190,19 +210,25 @@ describe("Booking Form Submit", () => {
   });
 
   test("Should be called with all text properties", () => {
+    const options = {
+      date: "2023-02-22",
+      time: "20:00",
+      guests: 7,
+      occasion: "Anniversary",
+    };
     const calendarInput = screen.getByLabelText("Choose date");
-    fireEvent.change(calendarInput, { target: { value: "2023-02-22" } });
+    fireEvent.change(calendarInput, { target: { value: options.date } });
 
     const timeInput = screen.getByLabelText(/Choose time/i);
-    fireEvent.change(timeInput, { target: { value: "20:00" } });
+    fireEvent.change(timeInput, { target: { value: options.time } });
 
     const guestInput = screen.getByLabelText(/Number of guests/i);
-    fireEvent.change(guestInput, { target: { value: 7 } });
+    fireEvent.change(guestInput, { target: { value: options.guests } });
 
     const occasionInput = screen.getByLabelText(/Occasion/i);
-    fireEvent.change(occasion, { target: { value: "Anniversary" } });
+    fireEvent.change(occasionInput, { target: { value: options.occasion } });
 
     fireEvent.click(submitButton);
-    expect(handleSubmit).toHaveBeenCalledWith({});
+    expect(handleSubmit).toHaveBeenCalledWith(options);
   });
 });

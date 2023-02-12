@@ -1,10 +1,10 @@
 import React from "react";
 
-function OccasionPicker() {
+function OccasionPicker({ getFieldProps }) {
   return (
     <>
       <label htmlFor="occasion">Occasion</label>
-      <select id="occasion">
+      <select id="occasion" name="occasion" {...getFieldProps("occasion")}>
         <option>Birthday</option>
         <option>Engagement</option>
         <option>Anniversary</option>
