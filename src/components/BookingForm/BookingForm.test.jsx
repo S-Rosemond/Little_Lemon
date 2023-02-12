@@ -1,5 +1,6 @@
 import { render, fireEvent, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { fetchAPI } from "../../util/fakeApi";
 import getISOStringToday from "../../util/getISOString";
 import Main from "./Main";
 
@@ -40,7 +41,9 @@ describe("Booking Form Calendar (Date Picker)", () => {
 });
 
 describe("Booking Form Time Picker", () => {
-  const handleChange = jest.fn();
+  const handleChange = jest.fn(getISOStringToday().slice(0, 10));
+  const fetchedTime = fetchAPI();
+
   beforeEach(() => {
     render(<Main handleChange={handleChange} />);
   });
@@ -57,7 +60,7 @@ describe("Booking Form Time Picker", () => {
 
   test("Should have default value of 17:00", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
-    expect(timeInput.value).toBe("17:00");
+    expect(timeInput.value).toBe(fetchedTime[0]);
     expect(screen.getByText("17:00").selected).toBe(true);
   });
 
@@ -65,47 +68,50 @@ describe("Booking Form Time Picker", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
     fireEvent.change(timeInput, { target: { value: "16:00" } });
     // 16:00 is not a valid option so no change is expected
-    expect(timeInput.value).toBe("17:00");
+    expect(timeInput.value).toBe(fetchedTime[0]);
   });
 
   test("Should change time to selected value", () => {
+    // test updated due to dynamic time generator
     const timeInput = screen.getByLabelText(/Choose time/i);
-    fireEvent.change(timeInput, { target: { value: "20:00" } });
-    expect(timeInput.value).toBe("20:00");
+    fireEvent.change(timeInput, { target: { value: fetchedTime[3] } });
+    expect(timeInput.value).toBe(fetchedTime[3]);
   });
 
   test("Should change time by selecting an option", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
     // too similar to fireEvent.change
-    userEvent.selectOptions(timeInput, ["19:00"]);
-    expect(timeInput.value).toBe("19:00");
+    userEvent.selectOptions(timeInput, [fetchedTime[4]]);
+    expect(timeInput.value).toBe(fetchedTime[4]);
   });
 
-  test("Should have specified select option 17:00", () => {
+  test("Should have specified select option [0]", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
-    userEvent.selectOptions(timeInput, [screen.getByText("17:00")]);
-    expect(screen.getByText("17:00").selected).toBe(true);
+    userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[0])]);
+    expect(screen.getByText(fetchedTime[0]).selected).toBe(true);
   });
 
-  test("Should have specified select option 18:00", () => {
+  test("Should have specified select option [1]", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
-    userEvent.selectOptions(timeInput, [screen.getByText("18:00")]);
-    expect(screen.getByText("18:00").selected).toBe(true);
+    userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[1])]);
+    expect(screen.getByText(fetchedTime[1]).selected).toBe(true);
   });
-  test("Should have specified select option 19:00", () => {
+
+  test("Should have specified select option [2]", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
-    userEvent.selectOptions(timeInput, [screen.getByText("19:00")]);
-    expect(screen.getByText("19:00").selected).toBe(true);
+    userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[2])]);
+    expect(screen.getByText(fetchedTime[2]).selected).toBe(true);
   });
-  test("Should have specified select option 20:00", () => {
+  test("Should have specified select option [3]", () => {
+    // test updated due to dynamic time generator
     const timeInput = screen.getByLabelText(/Choose time/i);
-    userEvent.selectOptions(timeInput, [screen.getByText("20:00")]);
-    expect(screen.getByText("20:00").selected).toBe(true);
+    userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[3])]);
+    expect(screen.getByText(fetchedTime[3]).selected).toBe(true);
   });
-  test("Should have specified select option 21:00", () => {
+  test("Should have specified select option [4]", () => {
     const timeInput = screen.getByLabelText(/Choose time/i);
-    userEvent.selectOptions(timeInput, [screen.getByText("21:00")]);
-    expect(screen.getByText("21:00").selected).toBe(true);
+    userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[4])]);
+    expect(screen.getByText(fetchedTime[4]).selected).toBe(true);
   });
 });
 
@@ -150,6 +156,7 @@ describe("Booking Form TimePickerOptions", () => {
   const handleChange = jest.fn();
   let calendarInput;
   let timeInput;
+  const fetchedTime = fetchAPI();
 
   beforeEach(() => {
     render(<Main handleChange={handleChange} />);
@@ -157,18 +164,18 @@ describe("Booking Form TimePickerOptions", () => {
     timeInput = screen.getByLabelText(/Choose time/i);
   });
 
-  test("Should have default value of 17:30", () => {
+  test("Should have default value of [0]", () => {
     fireEvent.change(calendarInput, { target: { value: "2023-10-17" } });
     // this fails as expected
     // expect(screen.getByText("18:30").selected).toBe(true);
-    expect(screen.getByText("17:30").selected).toBe(true);
+    expect(screen.getByText(fetchedTime[0]).selected).toBe(true);
   });
 
   test("Should change available time when changing date", () => {
     fireEvent.change(calendarInput, { target: { value: "2023-02-17" } });
-    userEvent.selectOptions(timeInput, ["18:30"]);
+    userEvent.selectOptions(timeInput, fetchedTime[2]);
 
-    expect(screen.getByText("18:30").selected).toBe(true);
+    expect(screen.getByText(fetchedTime[2]).selected).toBe(true);
   });
 });
 
@@ -206,20 +213,23 @@ describe("Booking Form Occasion Picker", () => {
 
 // Todo submit form
 describe("Booking Form Submit", () => {
-  const handleClick = jest.fn();
-  let submitButton;
+  const onSubmit = jest.fn((values) => values);
+
+  // let submitButton;
   // beforeEach(() => {
   //   render(<Main onSubmit={handleSubmit} />);
   //   submitButton = screen.getByRole("button");
   // });
 
-  test("Should be in document with test id submit-button", () => {
-    render(<Main onClick={handleClick} />);
+  test("Should be in document by role button", () => {
+    render(<Main />);
     const submitButton = screen.getByRole("button");
     expect(submitButton).toBeInTheDocument();
   });
 
-  test("Should be called with all text properties", async () => {
+  // only failing test
+  // false passing test, need to force fail
+  test("Should be called with all text properties", () => {
     const options = {
       date: "2023-02-22",
       time: "20:30",
@@ -227,7 +237,8 @@ describe("Booking Form Submit", () => {
       occasion: "Anniversary",
     };
 
-    render(<Main onSubmit={handleClick} />);
+    render(<Main onSubmit={onSubmit} />);
+
     const submitButton = screen.getByRole("button");
     const timeInput = screen.getByLabelText(/Choose time/i);
     const calendarInput = screen.getByLabelText("Choose date");
@@ -236,11 +247,14 @@ describe("Booking Form Submit", () => {
 
     fireEvent.change(calendarInput, { target: { value: options.date } });
     fireEvent.change(timeInput, { target: { value: options.time } });
-    fireEvent.change(guestInput, { target: { value: options.guests } });
+    fireEvent.change(guestInput, { target: { value: 1 } });
     fireEvent.change(occasionInput, { target: { value: options.occasion } });
     fireEvent.click(submitButton);
 
-    expect(handleClick).toHaveBeenCalled();
-    // expect(handleSubmit).toHaveBeenCalledWith(options);
+    // fireEvent.click(screen.getByRole("button"));
+    userEvent.click(screen.getByRole("button"));
+
+    // expect(onSubmit).toHaveBeenCalled();
+    expect(onSubmit).toHaveBeenCalledWith(options);
   });
 });

@@ -10,7 +10,7 @@ const BookingFormProvider = ({ children }) => {
 
   const [availableTimes, availableTimesDispatch] = useReducer(
     updateTimes,
-    initializeTimes()
+    initializeTimes(dateToday)
   );
 
   const options = {

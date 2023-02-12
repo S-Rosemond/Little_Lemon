@@ -1,4 +1,3 @@
-import React from "react";
 import BookingFormProvider from "../../context/BookingContext";
 import BookingForm from "./BookingForm";
 

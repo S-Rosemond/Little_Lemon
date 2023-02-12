@@ -8,19 +8,20 @@ import DatePicker from "./DatePicker/DatePicker";
 import GuestPicker from "./GuestPicker/GuestPicker";
 import OccasionPicker from "./OccasionPicker/OccasionPicker";
 import TimePicker from "./TimePicker/TimePicker";
+import { submitAPI } from "../../util/fakeApi";
 
 function BookingForm() {
-  const { dateToday } = useBookingFormContext();
+  const { dateToday, availableTimes } = useBookingFormContext();
   const formik = useFormik({
     initialValues: {
       occasion: "Birthday",
-      time: "17:00",
+      time: availableTimes[0],
       guests: "1",
       date: dateToday,
     },
     onSubmit: (values) => {
       console.log(values);
-      return values;
+      return submitAPI(values);
     },
     validationSchema: Yup.object({
       date: Yup.string().required("required"),
@@ -32,9 +33,6 @@ function BookingForm() {
     }),
   });
   const { handleSubmit, isSubmitting } = formik;
-  // console.log(formik.errors);
-  // console.log(formik.touched);
-  console.log(formik.values);
   return (
     <form className="booking-form" onSubmit={handleSubmit}>
       <DatePicker formik={formik} />
@@ -52,10 +50,3 @@ function BookingForm() {
 }
 
 export default BookingForm;
-
-/**
-
-const date = new Date()
-const options = {year: 'numeric', month: 'numeric', day: 'numeric'}
-const value = date.toISOString().slice(0, 10)
- */

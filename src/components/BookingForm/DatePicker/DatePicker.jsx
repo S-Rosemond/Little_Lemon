@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import { useBookingFormContext } from "../../../context/BookingContext";
+import { fetchAPI } from "../../../util/fakeApi";
 
 function DatePicker({ formik }) {
   const { dateToday, availableTimesDispatch } = useBookingFormContext();
 
   useEffect(() => {
-    const tempPayload = ["17:30", "18:30", "19:30", "20:30", "21:30", "22:30"];
-    let time;
-    if (dateToday === formik.values.date) {
-      availableTimesDispatch({ type: "today", payload: tempPayload });
-      time = "17:00";
-    } else if (formik.values.date !== undefined) {
-      availableTimesDispatch({ type: "updateTimes", payload: tempPayload });
-      time = "17:30";
-    }
+    const fetchFunction = () => {
+      const fetchedData = fetchAPI();
+      let time = fetchedData[0];
 
-    formik.setFieldValue("time", time);
+      availableTimesDispatch({ type: "updateTimes", payload: fetchedData });
+      formik.setFieldValue("time", time);
+    };
+    fetchFunction();
+
+    return () => fetchFunction();
   }, [formik.values.date]);
 
   return (
