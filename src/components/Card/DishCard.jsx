@@ -14,11 +14,12 @@ function DishCard({
   price,
   summary,
   image,
+  altText,
   footerText = "Order a delivery",
 }) {
   return (
     <Card variant="filled" maxW="sm" overflow="hidden">
-      <Image src={image} />
+      <Image src={image} alt={altText} />
       <CardHeader>
         <Flex align="center" justify="space-between">
           <Heading fontSize="1.5rem">{heading}</Heading>
