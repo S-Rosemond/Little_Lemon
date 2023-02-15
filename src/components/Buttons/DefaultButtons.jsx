@@ -1,9 +1,25 @@
-import "./DefaultButtons.css";
 import { Button } from "@chakra-ui/react";
 
-function DefaultButtons({ text }) {
+// button radius 16px for reserve a Table; brand yellow 500
+
+function DefaultButtons({
+  text,
+  buttonColor,
+  buttonBg,
+  buttonW,
+  buttonH,
+  borderRadius,
+}) {
   return (
-    <Button spinnerPlacement="start" className="btn">
+    <Button
+      width={buttonW}
+      height={buttonH}
+      spinnerPlacement="start"
+      bg={buttonBg}
+      color={buttonColor}
+      px="32px"
+      borderRadius={borderRadius}
+    >
       {text}
     </Button>
   );

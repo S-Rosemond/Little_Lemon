@@ -15,18 +15,11 @@ function App() {
     <>
       <ChakraProvider theme={theme}>
         {/* <Main /> */}
-        <DefaultButtons text="Add for $12.99" />
-        <DishCard
-          heading="Greek Salad"
-          price="$12.99"
-          summary={loremTest}
-          image={salad}
-        />
-        <MobileDishCard
-          heading="Greek Salad"
-          price="$12.99"
-          summary={loremTest}
-          image={salad}
+        <DefaultButtons buttonBg="brandYellow.500" text="Online Menu" />
+        <DefaultButtons
+          buttonBg="brandYellow.500"
+          text="Reserve a Table"
+          borderRadius="16px"
         />
       </ChakraProvider>
     </>
