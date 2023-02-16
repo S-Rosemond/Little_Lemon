@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/RouterSetup";
+import "./index.css";
 import "@fontsource/markazi-text";
 import "@fontsource/karla";
 import reportWebVitals from "./reportWebVitals";
