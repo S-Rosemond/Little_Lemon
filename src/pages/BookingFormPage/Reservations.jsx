@@ -1,5 +1,5 @@
 import BookingFormProvider from "../../context/BookingContext";
-import BookingForm from "./BookingForm";
+import BookingForm from "../../components/BookingForm/BookingForm";
 
 function Main() {
   return (

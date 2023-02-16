@@ -2,7 +2,7 @@ import { render, fireEvent, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { fetchAPI } from "../../util/fakeApi";
 import getISOStringToday from "../../util/getISOString";
-import Main from "./Main";
+import Main from "../../pages/BookingFormPage/Reservations";
 
 describe("Booking Form Calendar (Date Picker)", () => {
   const handleChange = jest.fn();

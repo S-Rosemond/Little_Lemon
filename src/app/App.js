@@ -1,8 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import theme from "./theme/customTheme";
+import theme from "../theme/customTheme";
 
-import Main from "./components/BookingForm/Main";
-import Navbar from "./components/Navigation/Navbar";
+import Main from "../pages/BookingFormPage/Reservations";
+import Navbar from "../components/Navigation/Navbar";
 
 const loremTest =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed velit dignissim sodales ut eu sem integer vitae justo. ";
@@ -12,7 +12,7 @@ function App() {
     <>
       <ChakraProvider theme={theme}>
         {/* <Main /> */}
-        <Navbar />
+        {/* <Navbar /> */}
       </ChakraProvider>
     </>
   );
