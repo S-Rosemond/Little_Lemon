@@ -6,12 +6,19 @@ import SidebarMenu from "../Sidebar/SidebarMenu";
 function Navbar() {
   return (
     <>
-      <Container fontSize={24} as="nav" py={5} centerContent>
+      <Container
+        fontSize={24}
+        as="nav"
+        py={5}
+        centerContent
+        className="pos-relative"
+      >
         <HStack gap={5}>
+          <SidebarMenu />
+
           <img width={200} src={logo} alt="Little Lemon Logo" />
 
-          <Spacer />
-          <Show breakpoint="(min-width: 768px)">
+          <Show breakpoint="(min-width: 600px)">
             <ul>
               <Flex gap="15px">
                 <li>
@@ -29,7 +36,6 @@ function Navbar() {
               </Flex>
             </ul>{" "}
           </Show>
-          <SidebarMenu />
         </HStack>
       </Container>
       <Outlet />

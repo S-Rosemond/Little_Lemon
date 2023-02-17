@@ -9,6 +9,7 @@ import {
   useDisclosure,
   Flex,
   Button,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
@@ -16,12 +17,19 @@ function SidebarMenu() {
   const { isOpen, onToggle, onClose } = useDisclosure();
   return (
     <>
-      <Show breakpoint="(max-width: 768px)">
-        <Button onClick={onToggle}>
-          <HamburgerIcon />
-        </Button>
+      <Show breakpoint="(max-width: 600px)">
+        <button
+          onClick={onToggle}
+          id="sidebar-hamburger"
+          aria-controls="sidebar-menu"
+          className="sidebar-hamburger"
+        >
+          <HamburgerIcon fontSize={50} />
+        </button>
       </Show>
       <Drawer
+        id="sidebar-menu"
+        aria-labelledby="sidebar-hamburger"
         placement="right"
         onClose={onClose}
         isOpen={isOpen}
@@ -30,6 +38,7 @@ function SidebarMenu() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+          <DrawerCloseButton />
           <DrawerBody>
             <Flex
               fontSize={24}

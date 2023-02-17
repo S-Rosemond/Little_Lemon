@@ -1,18 +1,27 @@
-.home-auto-layout {
+.hero {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px 16px 40px;
+  padding: 0px 1em 40px;
   gap: 16px;
-
-  /* height: 347px; */
-  left: 0px;
-  top: 80px;
-
   background: #495e57;
 }
 
-.hero-content {
+/* Subheading */
+.hero__sub-heading {
+  font-family: "Markazi Text";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 48px;
+  color: #edefee;
+  margin-top: -25px;
+  margin-bottom: 10px;
+}
+
+/* identical to box height */
+
+.hero__content {
   width: 242px;
   height: 105px;
   font-style: normal;
