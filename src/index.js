@@ -1,16 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider, BrowserRouter } from "react-router-dom";
 import router from "./router/RouterSetup";
 import "./index.css";
-import "@fontsource/markazi-text";
-import "@fontsource/karla";
+import "@fontsource/markazi-text/500.css";
+import "@fontsource/karla/400.css";
 import reportWebVitals from "./reportWebVitals";
+import { ChakraBaseProvider } from "@chakra-ui/react";
+import App from "./app/App";
+import theme from "./theme/customTheme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ChakraBaseProvider theme={theme}>
+      {/* left for ref */}
+      {/* <RouterProvider router={router} /> */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ChakraBaseProvider>
   </React.StrictMode>
 );
 

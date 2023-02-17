@@ -1,0 +1,23 @@
+.home-auto-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 16px 40px;
+  gap: 16px;
+
+  /* height: 347px; */
+  left: 0px;
+  top: 80px;
+
+  background: #495e57;
+}
+
+.hero-content {
+  width: 242px;
+  height: 105px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #ffffff;
+}
