@@ -1,11 +1,4 @@
-import {
-  Container,
-  Heading,
-  VStack,
-  Text,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react";
+import { Container, Heading, Text } from "@chakra-ui/react";
 import DefaultButtons from "../../components/Buttons/DefaultButtons";
 import "./Home.css";
 
@@ -25,7 +18,12 @@ function Home() {
           We are a family owned Mediterranean restaurant, focused on traditional
           recipes served with a modern twist.
         </Text>
-        <DefaultButtons borderRadius={16} bgColor="brandYellow.500">
+        <DefaultButtons
+          to="reservations"
+          borderRadius={16}
+          bgColor="brandYellow.500"
+          hover={{ backgroundColor: "brandYellow.600" }}
+        >
           Reserve a table
         </DefaultButtons>
       </Container>
