@@ -4,23 +4,24 @@ import { Button } from "@chakra-ui/react";
 
 function DefaultButtons({
   text,
-  buttonColor,
-  buttonBg,
-  buttonW,
-  buttonH,
+  color,
+  bgColor,
+  width,
+  height,
   borderRadius,
+  children,
 }) {
   return (
     <Button
-      width={buttonW}
-      height={buttonH}
+      width={width}
+      height={height}
       spinnerPlacement="start"
-      bg={buttonBg}
-      color={buttonColor}
+      bg={bgColor}
+      color={color}
       px="32px"
       borderRadius={borderRadius}
     >
-      {text}
+      {text ?? children}
     </Button>
   );
 }
