@@ -7,8 +7,8 @@ import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   fonts: {
-    heading: { "font-family": "Markazi Text, serif" },
-    body: { "font-family": "Karla, sans-serif" },
+    heading: `'Markazi text', serif`,
+    body: `'Karla', sans-serif`,
   },
   colors: {
     brandGreen: {
