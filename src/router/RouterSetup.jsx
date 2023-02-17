@@ -10,7 +10,7 @@ import App from "../app/App";
 import Navbar from "../components/Navigation/Navbar";
 import About from "../pages/AboutPage/About";
 
-function Navigation() {
+export function Navigation() {
   return (
     <>
       <Navbar />
