@@ -1,7 +1,6 @@
 import {
   Card,
   CardBody,
-  CardFooter,
   Image,
   Heading,
   Text,
@@ -9,9 +8,17 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-function MobileDishCard({ heading, price, summary, image, altText = "" }) {
+function MobileDishCard({
+  title,
+  price,
+  summary,
+  image,
+  altText = "",
+  onClick,
+}) {
   return (
     <Card
+      onClick={onClick}
       direction="row-reverse"
       overflow="hidden"
       variant="outline"
@@ -31,7 +38,7 @@ function MobileDishCard({ heading, price, summary, image, altText = "" }) {
       <Stack align="start" maxW="sm">
         <CardBody>
           <Heading fontSize="1.5rem" size="md">
-            {heading}
+            {title}
           </Heading>
           <Text
             textOverflow="ellipsis"
@@ -42,7 +49,12 @@ function MobileDishCard({ heading, price, summary, image, altText = "" }) {
           >
             {summary}
           </Text>
-          <Text fontSize="1.125rem" py="2" color="brandGray.800">
+          <Text
+            fontSize="1.125rem"
+            py="2"
+            color="brandGray.800"
+            onClick={onClick}
+          >
             {price}
           </Text>
         </CardBody>
