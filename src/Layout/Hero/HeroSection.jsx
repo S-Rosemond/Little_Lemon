@@ -28,6 +28,7 @@ function HeroSection() {
           Reserve a table
         </DefaultButtons>
       </Container>
+
       <RF />
     </main>
   );
@@ -37,10 +38,11 @@ const RF = () => (
   <Card
     maxW={[147, 147, 200, 300]}
     maxH={[152, 152, 200, 300]}
-    right={["10px", "10px", "10px", 45]}
-    bottom={[70, 70, 70, -45]}
+    right={["10px", "10px", "10px", 175, 275, 475]}
+    bottom={[70, 70, 70, -45, 35]}
     overflow="hidden"
     className="hero__image"
+    position={["absolute", "fixed"]}
   >
     <img
       src={restaurantFood}
