@@ -1,4 +1,4 @@
-import { Container, Flex, HStack, Spacer, Show } from "@chakra-ui/react";
+import { Container, Flex, HStack, Show } from "@chakra-ui/react";
 import { NavLink, Outlet } from "react-router-dom";
 import logo from "../../logo.svg";
 import SidebarMenu from "../Sidebar/SidebarMenu";

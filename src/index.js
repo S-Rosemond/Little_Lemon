@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, BrowserRouter } from "react-router-dom";
-import router from "./router/RouterSetup";
+// import { RouterProvider } from "react-router-dom";
+// import router from "./router/RouterSetup";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import "@fontsource/markazi-text/500.css";
 import "@fontsource/karla/400.css";
