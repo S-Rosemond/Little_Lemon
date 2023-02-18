@@ -7,10 +7,10 @@ import { Show, HStack, Flex } from "@chakra-ui/react";
 function OrderList() {
   return (
     <>
-      <Show breakpoint="(max-width: 600px)">
+      <Show breakpoint="(max-width: 1048px)">
         <NewOrderList Component={MobileDishCard} />
       </Show>
-      <Show breakpoint="(min-width: 600px)">
+      <Show breakpoint="(min-width: 1049px)">
         <Flex gap={10} justify="center">
           <NewOrderList Component={DishCard} />
         </Flex>

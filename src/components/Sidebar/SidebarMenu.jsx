@@ -16,7 +16,7 @@ function SidebarMenu() {
   const { isOpen, onToggle, onClose } = useDisclosure();
   return (
     <>
-      <Show breakpoint="(max-width: 600px)">
+      <Show breakpoint="(max-width: 599px)">
         <button
           onClick={onToggle}
           id="sidebar-hamburger"

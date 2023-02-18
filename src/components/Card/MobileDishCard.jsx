@@ -6,6 +6,8 @@ import {
   Text,
   Stack,
   Flex,
+  Spacer,
+  Show,
 } from "@chakra-ui/react";
 
 function MobileDishCard({
@@ -24,6 +26,7 @@ function MobileDishCard({
       variant="outline"
       justify="start"
       gap="50px"
+      px={5}
     >
       <Flex align="center">
         <Image
@@ -34,6 +37,9 @@ function MobileDishCard({
           alt={altText}
         />
       </Flex>
+      <Show breakpoint="(min-width: 580px)">
+        <Spacer />
+      </Show>
 
       <Stack align="start" maxW="sm">
         <CardBody>

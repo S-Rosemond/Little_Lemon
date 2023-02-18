@@ -5,6 +5,8 @@
   padding: 0px 1em 40px;
   gap: 16px;
   background: #495e57;
+  margin-bottom: 50px;
+  position: relative;
 }
 
 /* Subheading */
@@ -29,4 +31,9 @@
   font-size: 18px;
   line-height: 21px;
   color: #ffffff;
+}
+
+.hero__image {
+  position: absolute !important;
+  right: 0;
 }

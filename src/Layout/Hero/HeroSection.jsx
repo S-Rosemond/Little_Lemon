@@ -1,6 +1,7 @@
 import "./Hero.css";
-import { Container, Heading, Text } from "@chakra-ui/react";
+import { Card, Container, Heading, Text } from "@chakra-ui/react";
 import DefaultButtons from "../../components/Buttons/DefaultButtons";
+import restaurantFood from "../../assets/images/restauranfood.jpg";
 
 function HeroSection() {
   return (
@@ -27,8 +28,25 @@ function HeroSection() {
           Reserve a table
         </DefaultButtons>
       </Container>
+      <RF />
     </main>
   );
 }
+
+const RF = () => (
+  <Card
+    maxW={[147, 147, 300]}
+    maxH={[152, 152, 300]}
+    right={[21, 21, 45]}
+    bottom={[70, 70, -45]}
+    overflow="hidden"
+    className="hero__image"
+  >
+    <img
+      src={restaurantFood}
+      alt="Chef holding a tray of bruschettas from veggie to meat filled topping"
+    />
+  </Card>
+);
 
 export default HeroSection;
