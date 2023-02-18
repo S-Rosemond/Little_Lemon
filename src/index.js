@@ -10,6 +10,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraBaseProvider } from "@chakra-ui/react";
 import App from "./app/App";
 import theme from "./theme/customTheme";
+import Footer from "./Layout/FooterSection/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,6 +20,7 @@ root.render(
       {/* <RouterProvider router={router} /> */}
       <BrowserRouter>
         <App />
+        <Footer />
       </BrowserRouter>
     </ChakraBaseProvider>
   </React.StrictMode>
