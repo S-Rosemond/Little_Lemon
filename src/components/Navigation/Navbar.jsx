@@ -1,6 +1,6 @@
 import { Container, Flex, HStack, Show } from "@chakra-ui/react";
 import { NavLink, Outlet } from "react-router-dom";
-import logo from "../../logo.svg";
+import Logo from "../Other/Logo";
 import SidebarMenu from "../Sidebar/SidebarMenu";
 
 function Navbar() {
@@ -16,7 +16,7 @@ function Navbar() {
         <HStack gap={5}>
           <SidebarMenu />
 
-          <img width={200} src={logo} alt="Little Lemon Logo" />
+          <Logo width={200} />
 
           <Show breakpoint="(min-width: 600px)">
             <ul>
