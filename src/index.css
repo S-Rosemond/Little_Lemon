@@ -28,3 +28,17 @@ a:focus {
 .default-button {
   user-select: none;
 }
+
+.image-ratio {
+  aspect-ratio: 3/2;
+}
+
+.container {
+  padding: 1.25em 15.625em;
+}
+
+@media (min-width: 2499px) {
+  .container {
+    padding: 1.25em 46.625em;
+  }
+}

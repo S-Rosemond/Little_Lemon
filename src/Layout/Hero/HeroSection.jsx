@@ -6,7 +6,7 @@ import restaurantFood from "../../assets/images/restauranfood.jpg";
 function HeroSection() {
   return (
     <main className="hero">
-      <Container maxW="container.sm">
+      <Container maxW="container.sm" py="20px" px="16px">
         <Heading fontSize={64} color="brandYellow.500">
           Little Lemon
         </Heading>
@@ -35,10 +35,10 @@ function HeroSection() {
 
 const RF = () => (
   <Card
-    maxW={[147, 147, 300]}
-    maxH={[152, 152, 300]}
-    right={[21, 21, 45]}
-    bottom={[70, 70, -45]}
+    maxW={[147, 147, 200, 300]}
+    maxH={[152, 152, 200, 300]}
+    right={["10px", "10px", "10px", 45]}
+    bottom={[70, 70, 70, -45]}
     overflow="hidden"
     className="hero__image"
   >

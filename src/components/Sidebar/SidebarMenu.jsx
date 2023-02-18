@@ -23,7 +23,7 @@ function SidebarMenu() {
           aria-controls="sidebar-menu"
           className="sidebar-hamburger"
         >
-          <HamburgerIcon fontSize={50} />
+          <HamburgerIcon fontSize={32} />
         </button>
       </Show>
       <Drawer
