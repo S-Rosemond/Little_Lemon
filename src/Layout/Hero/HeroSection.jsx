@@ -5,7 +5,7 @@ import restaurantFood from "../../assets/images/restauranfood.jpg";
 
 function HeroSection() {
   return (
-    <main className="hero">
+    <header className="hero">
       <Container maxW="container.sm" py="20px" px="16px">
         <Heading fontSize={64} color="brandYellow.500">
           Little Lemon
@@ -29,12 +29,12 @@ function HeroSection() {
         </DefaultButtons>
       </Container>
 
-      <RF />
-    </main>
+      <RestaurantFoodImage />
+    </header>
   );
 }
 
-const RF = () => (
+const RestaurantFoodImage = () => (
   <Card
     maxW={[147, 147, 200, 300]}
     maxH={[152, 152, 200, 300]}
