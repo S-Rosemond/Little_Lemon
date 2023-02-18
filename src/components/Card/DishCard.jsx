@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 function DishCard({
-  heading,
+  title,
   price,
   summary,
   image,
@@ -22,7 +22,9 @@ function DishCard({
       <Image src={image} alt={altText} />
       <CardHeader>
         <Flex align="center" justify="space-between">
-          <Heading fontSize="1.5rem">{heading}</Heading>
+          <Heading fontSize="1.5rem" fontFamily="karla">
+            {title}
+          </Heading>
           <Text fontSize="1.3375rem" color="brandPeach.500">
             {price}
           </Text>

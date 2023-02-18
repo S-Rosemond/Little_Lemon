@@ -37,7 +37,7 @@ function MobileDishCard({
 
       <Stack align="start" maxW="sm">
         <CardBody>
-          <Heading fontSize="1.5rem" size="md">
+          <Heading fontSize="1.5rem" size="md" fontFamily="karla">
             {title}
           </Heading>
           <Text
