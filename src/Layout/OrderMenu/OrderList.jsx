@@ -7,8 +7,11 @@ import SubHeading from "../../components/Other/SubHeading";
 
 function OrderList() {
   return (
-    <>
-      <SubHeading />
+    <main>
+      <Show breakpoint="(min-width: 1049px)">
+        <SubHeading />
+      </Show>
+
       <Show breakpoint="(max-width: 1048px)">
         <NewOrderList Component={MobileDishCard} />
       </Show>
@@ -19,7 +22,7 @@ function OrderList() {
           </Flex>
         </Show>
       </Container>
-    </>
+    </main>
   );
 }
 
