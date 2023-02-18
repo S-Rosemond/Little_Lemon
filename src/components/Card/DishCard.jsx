@@ -18,7 +18,7 @@ function DishCard({
   footerText = "Order a delivery",
 }) {
   return (
-    <Card variant="filled" maxW="sm" overflow="hidden">
+    <Card variant="filled" maxW="xs" overflow="hidden">
       <Image src={image} alt={altText} />
       <CardHeader>
         <Flex align="center" justify="space-between">
