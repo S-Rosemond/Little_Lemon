@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 li {
@@ -31,6 +32,22 @@ a:focus {
 
 .image-ratio {
   aspect-ratio: 3/2;
+}
+
+.about-image {
+  height: clamp(100px, 500px, 100%);
+  width: clamp(150px, 500px, 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 16px;
+}
+.about-image__A {
+  background-image: url("./assets/images/restaurant.jpg");
+  background-position: center right;
+}
+.about-image__B {
+  background-image: url("./assets/images/Mario and Adrian b.jpg");
+  background-position: center;
 }
 
 .container {

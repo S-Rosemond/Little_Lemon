@@ -1,11 +1,4 @@
-import {
-  Heading,
-  Image,
-  Text,
-  Grid,
-  GridItem,
-  IconButton,
-} from "@chakra-ui/react";
+import { Heading, Text, Grid, GridItem } from "@chakra-ui/react";
 import CardImage from "../../components/Card/CardImage";
 import chefs from "../../assets/images/Mario and Adrian b.jpg";
 import restaurant from "../../assets/images/restaurant.jpg";

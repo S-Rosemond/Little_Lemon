@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useColorModeValue, VStack } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { CreateIconButtons } from "../../components/Other/IconComposition";
 import { ChakraImageLogo } from "../../components/Other/Logo";
 
