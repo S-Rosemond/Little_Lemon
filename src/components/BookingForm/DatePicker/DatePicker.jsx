@@ -1,7 +1,13 @@
 import { useEffect } from "react";
 import { useBookingFormContext } from "../../../context/BookingContext";
 import { fetchAPI } from "../../../util/fakeApi";
-import { Input } from "@chakra-ui/react";
+import {
+  FormControl,
+  Input,
+  FormLabel,
+  FormHelperText,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 
 function DatePicker({ formik }) {
   const { dateToday, availableTimesDispatch } = useBookingFormContext();
@@ -21,15 +27,24 @@ function DatePicker({ formik }) {
 
   return (
     <>
-      <label htmlFor="date">Choose date</label>
+      <FormControl isInvalid={formik.errors.date}>
+        <FormLabel htmlFor="date">Choose date</FormLabel>
 
-      <Input
-        type="date"
-        id="date"
-        name="date"
-        value={formik.values.date ?? dateToday}
-        onChange={formik.handleChange}
-      />
+        <Input
+          type="date"
+          id="date"
+          name="date"
+          value={formik.values.date ?? dateToday}
+          onChange={formik.handleChange}
+        />
+        {formik.errors.date ? (
+          <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
+        ) : (
+          <FormHelperText>
+            Please select a date to for reservation
+          </FormHelperText>
+        )}
+      </FormControl>
     </>
   );
 }

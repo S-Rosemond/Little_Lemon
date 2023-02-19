@@ -1,54 +1,28 @@
-import BookingFormProvider, {
-  useBookingFormContext,
-} from "../../context/BookingContext";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { Button, Flex } from "@chakra-ui/react";
 import "./BookingForm.css";
 import DatePicker from "./DatePicker/DatePicker";
 import GuestPicker from "./GuestPicker/GuestPicker";
 import OccasionPicker from "./OccasionPicker/OccasionPicker";
 import TimePicker from "./TimePicker/TimePicker";
-import { submitAPI } from "../../util/fakeApi";
 
-function BookingForm() {
-  const { dateToday, availableTimes } = useBookingFormContext();
-  const formik = useFormik({
-    initialValues: {
-      occasion: "Birthday",
-      time: availableTimes[0],
-      guests: "1",
-      date: dateToday,
-    },
-    onSubmit: (values) => {
-      console.log(values);
-      const response = submitAPI(values);
+function BookingForm({ formik, dateToday }) {
+  const { handleSubmit, isSubmitting, errors, values } = formik;
 
-      if (response) {
-        localStorage.setItem("booking", values);
-        formik.resetForm();
-        //navigate('/confirmedBooking')
-      }
-    },
-    validationSchema: Yup.object({
-      date: Yup.string().required("required"),
-      time: Yup.string().required("required"),
-      guest: Yup.number().positive().integer(),
-      occasion: Yup.string()
-        .oneOf([
-          "Birthday",
-          "Engagement",
-          "Anniversary",
-          "Graduation",
-          "General Occasion",
-        ])
-        .required("required"),
-    }),
-  });
-  const { handleSubmit, isSubmitting, errors } = formik;
   const submitForm = (e) => {
+    e.preventDefault();
+    const dayToday = Number(dateToday.slice(8, 10));
+    if (Number(values.date.slice(8, 10)) < dayToday) {
+      formik.setFieldError(
+        "date",
+        "You cannot select a day in the past. Please select a valid day"
+      );
+      // console.log(dayToday, Number(values.date.slice(8, 10)));
+      return;
+    }
     handleSubmit(e);
   };
   // console.log(errors);
+  // console.log(formik.errors.date);
   // console.log(formik.values);
   return (
     <form className="booking-form" onSubmit={submitForm}>
@@ -56,12 +30,23 @@ function BookingForm() {
       <TimePicker formik={formik} />
       <GuestPicker formik={formik} />
       <OccasionPicker formik={formik} />
-      <input
-        disabled={isSubmitting}
-        type="submit"
-        value="Make Your reservation"
-        formik={formik}
-      />
+      <Flex justify="space-between">
+        <Button colorScheme="brandYellow" color="blackAlpha.900" width="150px">
+          Previous
+        </Button>
+        <Button
+          disabled={isSubmitting}
+          bg="brandGreen.600"
+          type="submit"
+          value="Make Your reservation"
+          formik={formik}
+          width="150px"
+          color="white"
+          _hover={{ backgroundColor: "brandGreen.700" }}
+        >
+          Submit
+        </Button>
+      </Flex>
     </form>
   );
 }

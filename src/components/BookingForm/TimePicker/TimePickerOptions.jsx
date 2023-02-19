@@ -15,6 +15,17 @@ function CreateSelectOptions({ array, Component }) {
   );
 }
 
+export function CreateSelectNumber({ number }) {
+  const array = Array.from({ length: number });
+  return (
+    <>
+      {array.map((_, idx) => {
+        return <option key={idx + 1}>{idx + 1}</option>;
+      })}
+    </>
+  );
+}
+
 export function ChakraCreateMenuListOptions({ Component, array }) {
   const { availableTimes } = useBookingFormContext();
   const ComponentOption = Component ?? MenuItem;
