@@ -13,13 +13,14 @@ function TimePickerOptions() {
   );
 }
 
-export function ChakraTimePickerOptions({ Component }) {
+export function ChakraCreateMenuListOptions({ Component, array }) {
   const { availableTimes } = useBookingFormContext();
   const ComponentOption = Component ?? MenuItem;
+  const arrayToMap = array ?? availableTimes.currentValue;
 
   return (
     <>
-      {availableTimes.currentValue.map((el) => {
+      {arrayToMap.map((el) => {
         return <ComponentOption key={el}>{el} </ComponentOption>;
       })}
     </>

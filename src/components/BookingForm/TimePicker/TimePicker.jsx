@@ -1,7 +1,7 @@
 import { Menu, MenuButton, MenuList, Button } from "@chakra-ui/react";
 import React from "react";
 // import TimePickerOptions from "./TimePickerOptions";
-import { ChakraTimePickerOptions } from "./TimePickerOptions";
+import { ChakraCreateMenuListOptions } from "./TimePickerOptions";
 
 function TimePicker({ formik }) {
   return (
@@ -10,12 +10,8 @@ function TimePicker({ formik }) {
         <MenuButton as={Button} colorScheme="brandYellow" color="black.900">
           <label id="time">Choose time</label>
         </MenuButton>
-        <MenuList
-          aria-labelledby="time"
-          name="time"
-          {...formik.getFieldProps("time")}
-        >
-          <ChakraTimePickerOptions />
+        <MenuList aria-labelledby="time" {...formik.getFieldProps("time")}>
+          <ChakraCreateMenuListOptions />
         </MenuList>
       </Menu>
     </>
