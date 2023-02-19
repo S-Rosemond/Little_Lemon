@@ -55,80 +55,82 @@ describe("Booking Form Calendar (Date Picker)", () => {
 
 // </button>
 
-// describe("Booking Form Time Picker", () => {
-//   const handleChange = jest.fn(getISOStringToday().slice(0, 10));
-//   const fetchedTime = fetchAPI();
+describe("Booking Form Time Picker", () => {
+  const handleChange = jest.fn(getISOStringToday().slice(0, 10));
+  const fetchedTime = fetchAPI();
 
-//   beforeEach(() => {
-//     render(<Main handleChange={handleChange} />);
-//   });
+  beforeEach(() => {
+    render(<Main handleChange={handleChange} />);
+  });
 
-//   test("Should render time picker label and input", () => {
-//     const timeInput = screen.getByText(/Choose time/i);
-//     expect(timeInput).toBeInTheDocument();
-//   });
+  test("Should render time picker label and input", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    expect(timeInput).toBeInTheDocument();
+  });
 
-//   test("Should have id of time", () => {
-//     const timeInput = screen.getByText(/Choose time/i);
-//     expect(timeInput).toHaveAttribute("id", "time");
-//   });
+  test("Should have id of time", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    expect(timeInput).toHaveAttribute("id", "time");
+  });
 
-//   test("Should have default value of 17:00", () => {
-//     const timeInput = screen.getByText(/Choose time/i);
-//     expect(timeInput.value).toBe(fetchedTime[0]);
-//     expect(screen.getByText("17:00").selected).toBe(true);
-//   });
+  test("Should have default value of 17:00", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    expect(timeInput.value).toBe(fetchedTime[0]);
+    expect(screen.getByText("17:00").selected).toBe(true);
+  });
 
-//   test("Should not change time to invalid value", () => {
-//     const timeInput = screen.getByText(/Choose time/i);
-//     fireEvent.change(timeInput, { target: { value: "16:00" } });
-//     // 16:00 is not a valid option so no change is expected
-//     expect(timeInput.value).toBe(fetchedTime[0]);
-//   });
+  test("Should not change time to invalid value", () => {
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    fireEvent.change(timeInput, { target: { value: "16:00" } });
+    // 16:00 is not a valid option so no change is expected
+    expect(timeInput.value).toBe(fetchedTime[0]);
+  });
 
-//   test("Should change time to selected value", () => {
-//     // test updated due to dynamic time generator
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     fireEvent.change(timeInput, { target: { value: fetchedTime[3] } });
-//     expect(timeInput.value).toBe(fetchedTime[3]);
-//   });
+  test("Should change time to selected value", () => {
+    // test updated due to dynamic time generator
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    fireEvent.change(timeInput, { target: { value: fetchedTime[3] } });
+    expect(timeInput.value).toBe(fetchedTime[3]);
+  });
 
-//   test("Should change time by selecting an option", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     // too similar to fireEvent.change
-//     userEvent.selectOptions(timeInput, [fetchedTime[4]]);
-//     expect(timeInput.value).toBe(fetchedTime[4]);
-//   });
+  // User events not working with Chakra Select commented due to time
 
-//   test("Should have specified select option [0]", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[0])]);
-//     expect(screen.getByText(fetchedTime[0]).selected).toBe(true);
-//   });
+  // test("Should change time by selecting an option", () => {
+  //   const timeInput = screen.getByLabelText(/Choose time/i);
+  //   // too similar to fireEvent.change
+  //   userEvent.selectOptions(timeInput, [fetchedTime[4]]);
+  //   expect(timeInput.value).toBe(fetchedTime[4]);
+  // });
 
-//   test("Should have specified select option [1]", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[1])]);
-//     expect(screen.getByText(fetchedTime[1]).selected).toBe(true);
-//   });
+  // test("Should have specified select option [0]", () => {
+  //   const timeInput = screen.getByLabelText(/Choose time/i);
+  //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[0])]);
+  //   expect(screen.getByText(fetchedTime[0]).selected).toBe(true);
+  // });
 
-//   test("Should have specified select option [2]", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[2])]);
-//     expect(screen.getByText(fetchedTime[2]).selected).toBe(true);
-//   });
-//   test("Should have specified select option [3]", () => {
-//     // test updated due to dynamic time generator
-//     const timeInput = screen.getByText(/Choose time/i);
-//     userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[3])]);
-//     expect(screen.getByText(fetchedTime[3]).selected).toBe(true);
-//   });
-//   test("Should have specified select option [4]", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[4])]);
-//     expect(screen.getByText(fetchedTime[4]).selected).toBe(true);
-//   });
-// });
+  // test("Should have specified select option [1]", () => {
+  //   const timeInput = screen.getByLabelText(/Choose time/i);
+  //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[1])]);
+  //   expect(screen.getByText(fetchedTime[1]).selected).toBe(true);
+  // });
+
+  // test("Should have specified select option [2]", () => {
+  //   const timeInput = screen.getByLabelText(/Choose time/i);
+  //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[2])]);
+  //   expect(screen.getByText(fetchedTime[2]).selected).toBe(true);
+  // });
+  // test("Should have specified select option [3]", () => {
+  //   // test updated due to dynamic time generator
+  //   const timeInput = screen.getByText(/Choose time/i);
+  //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[3])]);
+  //   expect(screen.getByText(fetchedTime[3]).selected).toBe(true);
+  // });
+  // test("Should have specified select option [4]", () => {
+  //   const timeInput = screen.getByLabelText(/Choose time/i);
+  //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[4])]);
+  //   expect(screen.getByText(fetchedTime[4]).selected).toBe(true);
+  // });
+});
 
 // describe("Booking Form Guest Picker", () => {
 //   const handleChange = jest.fn();
