@@ -1,14 +1,16 @@
 import { MenuItem } from "@chakra-ui/react";
 import { useBookingFormContext } from "../../../context/BookingContext";
 
-function TimePickerOptions() {
+function CreateSelectOptions({ array, Component }) {
   const { availableTimes } = useBookingFormContext();
+  const createOption = (el) => <option key={el}>{el}</option>;
+  const optionList = array ?? availableTimes.currentValue;
 
   return (
     <>
-      {availableTimes.currentValue.map((el) => (
-        <option key={el}>{el}</option>
-      ))}
+      {optionList.map((el) =>
+        Component ? <Component key={el}>{el}</Component> : createOption(el)
+      )}
     </>
   );
 }
@@ -27,4 +29,4 @@ export function ChakraCreateMenuListOptions({ Component, array }) {
   );
 }
 
-export default TimePickerOptions;
+export default CreateSelectOptions;

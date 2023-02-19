@@ -1,9 +1,15 @@
 import { MenuButton, MenuList, Menu, Button, Select } from "@chakra-ui/react";
 import React from "react";
-import { ChakraCreateMenuListOptions } from "../TimePicker/TimePickerOptions";
+import CreateSelectOptions from "../TimePicker/TimePickerOptions";
 
 function OccasionPicker({ formik }) {
-  const array = ["Birthday", "Engagement", "Anniversary"];
+  const array = [
+    "Birthday",
+    "Engagement",
+    "Anniversary",
+    "Graduation",
+    "General Occasion",
+  ];
   return (
     <>
       <label htmlFor="occasion">Occasion</label>
@@ -12,9 +18,7 @@ function OccasionPicker({ formik }) {
         name="occasion"
         {...formik.getFieldProps("occasion")}
       >
-        <option>Birthday</option>
-        <option>Engagement</option>
-        <option>Anniversary</option>
+        <CreateSelectOptions array={array} />
       </Select>
     </>
   );

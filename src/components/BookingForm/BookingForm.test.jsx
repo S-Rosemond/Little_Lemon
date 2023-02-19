@@ -224,6 +224,14 @@ describe("Booking Form Occasion Picker", () => {
     fireEvent.change(occasionInput, { target: { value: "Anniversary" } });
     expect(occasionInput.value).toBe("Anniversary");
   });
+  test("Should change occasion to valid value", () => {
+    fireEvent.change(occasionInput, { target: { value: "Graduation" } });
+    expect(occasionInput.value).toBe("Graduation");
+  });
+  test("Should change occasion to valid value", () => {
+    fireEvent.change(occasionInput, { target: { value: "General Occasion" } });
+    expect(occasionInput.value).toBe("General Occasion");
+  });
 });
 
 // Todo submit form

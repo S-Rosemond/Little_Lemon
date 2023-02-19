@@ -34,7 +34,13 @@ function BookingForm() {
       time: Yup.string().required("required"),
       guest: Yup.number().positive().integer(),
       occasion: Yup.string()
-        .oneOf(["Birthday", "Engagement", "Anniversary"])
+        .oneOf([
+          "Birthday",
+          "Engagement",
+          "Anniversary",
+          "Graduation",
+          "General Occasion",
+        ])
         .required("required"),
     }),
   });
