@@ -1,6 +1,8 @@
 import React from "react";
 import orderList from "../../db/OrderList";
 
+// Next time use Blur hash for images; due tomorrow
+
 function GenericOrderListParent({ children, onClick }) {
   const MobileList = React.Children.map(children, () => {
     return React.cloneElement(children, { onClick });
