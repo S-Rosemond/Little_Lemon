@@ -194,37 +194,37 @@ describe("Booking Form Calendar (Date Picker)", () => {
 //   });
 // });
 
-// describe("Booking Form Occasion Picker", () => {
-//   const handleChange = jest.fn();
-//   let occasionInput;
-//   beforeEach(() => {
-//     render(<Main handleChange={handleChange} />);
-//     occasionInput = screen.getByLabelText(/Occasion/i);
-//   });
+describe("Booking Form Occasion Picker", () => {
+  const handleChange = jest.fn();
+  let occasionInput;
+  beforeEach(() => {
+    render(<Main handleChange={handleChange} />);
+    occasionInput = screen.getByLabelText(/Occasion/i);
+  });
 
-//   test("Should render label and input in document", () => {
-//     expect(occasionInput).toBeInTheDocument();
-//   });
+  test("Should render label and input in document", () => {
+    expect(occasionInput).toBeInTheDocument();
+  });
 
-//   test("Should have id of occasion", () => {
-//     expect(occasionInput).toHaveAttribute("id", "occasion");
-//   });
+  test("Should have id of occasion", () => {
+    expect(occasionInput).toHaveAttribute("id", "occasion");
+  });
 
-//   test("Should have default value of Birthday", () => {
-//     expect(occasionInput.value).toBe("Birthday");
-//   });
+  test("Should have default value of Birthday", () => {
+    expect(occasionInput.value).toBe("Birthday");
+  });
 
-//   test("Should not change occasion to invalid value", () => {
-//     fireEvent.change(occasionInput, { target: { value: "Party" } });
-//     // no change expected
-//     expect(occasionInput.value).toBe("Birthday");
-//   });
+  test("Should not change occasion to invalid value", () => {
+    fireEvent.change(occasionInput, { target: { value: "Party" } });
+    // no change expected
+    expect(occasionInput.value).toBe("Birthday");
+  });
 
-//   test("Should change occasion to valid value", () => {
-//     fireEvent.change(occasionInput, { target: { value: "Anniversary" } });
-//     expect(occasionInput.value).toBe("Anniversary");
-//   });
-// });
+  test("Should change occasion to valid value", () => {
+    fireEvent.change(occasionInput, { target: { value: "Anniversary" } });
+    expect(occasionInput.value).toBe("Anniversary");
+  });
+});
 
 // Todo submit form
 describe("Booking Form Submit", () => {
