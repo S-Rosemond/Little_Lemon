@@ -5,33 +5,25 @@ import GuestPicker from "./GuestPicker/GuestPicker";
 import OccasionPicker from "./OccasionPicker/OccasionPicker";
 import TimePicker from "./TimePicker/TimePicker";
 
-function BookingForm({ formik, dateToday }) {
-  const { handleSubmit, isSubmitting, errors, values } = formik;
+function BookingForm({ formik, handlePrevious }) {
+  const { isSubmitting } = formik;
 
-  const submitForm = (e) => {
-    e.preventDefault();
-    const dayToday = Number(dateToday.slice(8, 10));
-    if (Number(values.date.slice(8, 10)) < dayToday) {
-      formik.setFieldError(
-        "date",
-        "You cannot select a day in the past. Please select a valid day"
-      );
-      // console.log(dayToday, Number(values.date.slice(8, 10)));
-      return;
-    }
-    handleSubmit(e);
-  };
   // console.log(errors);
   // console.log(formik.errors.date);
   // console.log(formik.values);
   return (
-    <form className="booking-form" onSubmit={submitForm}>
+    <>
       <DatePicker formik={formik} />
       <TimePicker formik={formik} />
       <GuestPicker formik={formik} />
       <OccasionPicker formik={formik} />
       <Flex justify="space-between">
-        <Button colorScheme="brandYellow" color="blackAlpha.900" width="150px">
+        <Button
+          onClick={handlePrevious}
+          colorScheme="brandYellow"
+          color="blackAlpha.900"
+          width="150px"
+        >
           Previous
         </Button>
         <Button
@@ -42,12 +34,12 @@ function BookingForm({ formik, dateToday }) {
           formik={formik}
           width="150px"
           color="white"
-          _hover={{ backgroundColor: "brandGreen.700" }}
+          _hover={{ background: "brandGreen.700" }}
         >
           Submit
         </Button>
       </Flex>
-    </form>
+    </>
   );
 }
 
