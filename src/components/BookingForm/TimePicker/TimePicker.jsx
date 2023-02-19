@@ -1,4 +1,9 @@
-import { Menu, MenuButton, MenuList, Button, Select } from "@chakra-ui/react";
+import {
+  FormHelperText,
+  Select,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/react";
 import React from "react";
 // import TimePickerOptions from "./TimePickerOptions";
 import CreateSelectOptions from "./TimePickerOptions";
@@ -6,10 +11,15 @@ import CreateSelectOptions from "./TimePickerOptions";
 function TimePicker({ formik }) {
   return (
     <>
-      <label htmlFor="time">Choose time</label>
-      <Select name="time" id="time" {...formik.getFieldProps("time")}>
-        <CreateSelectOptions />
-      </Select>
+      <FormControl isInvalid={formik.errors.time}>
+        <FormLabel htmlFor="time">Choose time</FormLabel>
+        <Select name="time" id="time" {...formik.getFieldProps("time")}>
+          <CreateSelectOptions />
+        </Select>
+        <FormHelperText>
+          Please select an intended time of attendance
+        </FormHelperText>
+      </FormControl>
     </>
   );
 }
