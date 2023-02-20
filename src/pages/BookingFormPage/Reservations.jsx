@@ -5,8 +5,11 @@ import { useBookingFormContext } from "../../context/BookingContext";
 import BookingForm from "../../components/BookingForm/BookingForm";
 import { submitAPI, fetchAPI } from "../../util/fakeApi";
 import UserForm from "../../components/BookingForm/UserData/UserForm";
+import ConfirmedBooking from "../../components/Feedback/ConfirmedBooking";
 
 function Main() {
+  const [step, setStep] = useState(0);
+  const [bookingData, setBookingData] = useState(null);
   const { dateToday, availableTimes, availableTimesDispatch } =
     useBookingFormContext();
   const formik = useFormik({
@@ -24,13 +27,16 @@ function Main() {
       const response = submitAPI(values);
 
       if (response) {
-        localStorage.setItem("booking", values);
+        // localStorage.setItem("booking", values);
+        setBookingData(values);
         formik.resetForm();
+        setStep(2);
         //navigate('/confirmedBooking')
       }
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("Required"),
+      lastName: Yup.string().required("Required"),
       email: Yup.string()
         .email("Please use a valid email format")
         .required("Required"),
@@ -78,8 +84,6 @@ function Main() {
     handleSubmit(e);
   };
 
-  const [step, setStep] = useState(0);
-
   const handleNext = (e) => {
     e.preventDefault();
 
@@ -103,6 +107,7 @@ function Main() {
             handlePrevious={handlePrevious}
           />
         )}
+        {step === 2 && <ConfirmedBooking bookingData={bookingData} />}
       </form>
     </main>
   );
