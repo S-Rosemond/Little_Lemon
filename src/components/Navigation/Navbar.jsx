@@ -20,7 +20,7 @@ function Navbar() {
 
           <Show breakpoint="(min-width: 600px)">
             <ul>
-              <Flex gap="15px">
+              <Flex gap="15px" fontSize="18px">
                 <li>
                   <NavLink to="/">Home</NavLink>
                 </li>
@@ -33,8 +33,14 @@ function Navbar() {
                 <li>
                   <NavLink to="about">About</NavLink>
                 </li>
+                <li>
+                  <a href="#">Order Online</a>
+                </li>
+                <li>
+                  <a href="#"> Login</a>
+                </li>
               </Flex>
-            </ul>{" "}
+            </ul>
           </Show>
         </HStack>
       </Container>
