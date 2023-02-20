@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useBookingFormContext } from "../../context/BookingContext";
 import BookingForm from "../../components/BookingForm/BookingForm";
-import { submitAPI } from "../../util/fakeApi";
+import { submitAPI, fetchAPI } from "../../util/fakeApi";
+import UserForm from "../../components/BookingForm/UserData/UserForm";
 
 function Main() {
-  const { dateToday, availableTimes } = useBookingFormContext();
+  const { dateToday, availableTimes, availableTimesDispatch } =
+    useBookingFormContext();
   const formik = useFormik({
     initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
       occasion: "Birthday",
       time: availableTimes[0],
       guests: "1",
@@ -25,6 +30,10 @@ function Main() {
       }
     },
     validationSchema: Yup.object({
+      firstName: Yup.string().required("Required"),
+      email: Yup.string()
+        .email("Please use a valid email format")
+        .required("Required"),
       date: Yup.string().required("required"),
       time: Yup.string().required("required"),
       guest: Yup.number().positive().integer(),
@@ -40,7 +49,20 @@ function Main() {
     }),
   });
 
-  const { handleSubmit, isSubmitting, errors, values } = formik;
+  useEffect(() => {
+    const fetchFunction = () => {
+      const fetchedData = fetchAPI();
+      let time = fetchedData[0];
+
+      availableTimesDispatch({ type: "updateTimes", payload: fetchedData });
+      formik.setFieldValue("time", time);
+    };
+    fetchFunction();
+
+    return () => fetchFunction();
+  }, [formik.values.date]);
+
+  const { handleSubmit, values } = formik;
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -73,11 +95,14 @@ function Main() {
   return (
     <main className="booking-form__main">
       <form className="booking-form" onSubmit={submitForm}>
-        <BookingForm
-          formik={formik}
-          dateToday={dateToday}
-          handlePrevious={handlePrevious}
-        />
+        {step === 0 && <UserForm handleNext={handleNext} formik={formik} />}
+        {step === 1 && (
+          <BookingForm
+            formik={formik}
+            dateToday={dateToday}
+            handlePrevious={handlePrevious}
+          />
+        )}
       </form>
     </main>
   );

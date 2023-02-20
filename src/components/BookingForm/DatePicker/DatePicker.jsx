@@ -10,20 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 function DatePicker({ formik }) {
-  const { dateToday, availableTimesDispatch } = useBookingFormContext();
-
-  useEffect(() => {
-    const fetchFunction = () => {
-      const fetchedData = fetchAPI();
-      let time = fetchedData[0];
-
-      availableTimesDispatch({ type: "updateTimes", payload: fetchedData });
-      formik.setFieldValue("time", time);
-    };
-    fetchFunction();
-
-    return () => fetchFunction();
-  }, [formik.values.date]);
+  const { dateToday } = useBookingFormContext();
 
   return (
     <>
