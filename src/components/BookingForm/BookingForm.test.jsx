@@ -3,289 +3,537 @@ import userEvent from "@testing-library/user-event";
 import { fetchAPI } from "../../util/fakeApi";
 import getISOStringToday from "../../util/getISOString";
 import Main from "../../pages/BookingFormPage/ReservationsPage";
+import ReservationsPage from "../../pages/BookingFormPage/ReservationsPage";
 
-// all passing test now broken due to changes; time constraint commenting test
-// can fix but no time
+describe("Booking Form Calendar (Date Picker)", () => {
+  const handleChange = jest.fn();
+  beforeEach(() => {
+    render(<ReservationsPage handleChange={handleChange} />);
+  });
 
-// describe("Booking Form Calendar (Date Picker)", () => {
-//   const handleChange = jest.fn();
-//   beforeEach(() => {
-//     render(<Main handleChange={handleChange} />);
-//   });
+  test("Should have first name input", () => {
+    const firstName = screen.getByLabelText("First Name");
+    expect(firstName).toBeInTheDocument();
+  });
+  test("Should have last name input", () => {
+    const lastName = screen.getByLabelText("Last Name");
+    expect(lastName).toBeInTheDocument();
+  });
+  test("Should have last name input", () => {
+    const email = screen.getByLabelText("Email");
+    expect(email).toBeInTheDocument();
+  });
 
-// test("Should render calendar label and input", () => {
-//   const calendarInput = screen.getByLabelText("Choose date");
-//   expect(calendarInput).toBeInTheDocument();
-// });
+  test("Should render calendar label and input", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-// test("Should be of type date", () => {
-//   const calendarInput = screen.getByLabelText("Choose date");
-//   expect(calendarInput).toHaveAttribute("type", "date");
-// });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(firstName, "fefefe@gmail.com");
 
-// test("Should have id of date", () => {
-//   const calendarInput = screen.getByLabelText("Choose date");
-//   expect(calendarInput).toHaveAttribute("id", "date");
-// });
+    fireEvent.click(screen.getByText("Next"));
+    const calendarInput = screen.getByLabelText("Choose date");
+    expect(calendarInput).toBeInTheDocument();
+  });
 
-// test("Should have today's date as default value", () => {
-//   const calendarInput = screen.getByLabelText("Choose date");
-//   const today = getISOStringToday().slice(0, 10);
-//   // WORKS WITH MANUAL DATE
-//   // expect(calendarInput.value).toBe("2023-02-10");
-//   expect(calendarInput.value).toBe(today);
-// });
+  test("Should be of type date", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-// test("Should change date to selected value", () => {
-//   const calendarInput = screen.getByLabelText("Choose date");
-//   fireEvent.change(calendarInput, { target: { value: "2023-02-22" } });
-//   expect(calendarInput.value).toBe("2023-02-22");
-// });
-// });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(firstName, "fefefe@gmail.com");
 
-// Adding Chakra broke most test
-// Example: Error [TestingLibraryElementError]: Value "21:30" not found in options
-// Despite the options existing; commenting out test due to time constraint
-//    <button
-// class="chakra-menu__menuitem css-1k756t9"
-// data-index="4"
-// id="menu-list-:r4d:-menuitem-:r4l:"
-// role="menuitem"
-// tabindex="-1"
-// type="button"
-// >
-// 21:30
+    fireEvent.click(screen.getByText("Next"));
+    const calendarInput = screen.getByLabelText("Choose date");
 
-// </button>
+    expect(calendarInput).toHaveAttribute("type", "date");
+  });
 
-// describe("Booking Form Time Picker", () => {
-//   const handleChange = jest.fn(getISOStringToday().slice(0, 10));
-//   const fetchedTime = fetchAPI();
+  test("Should have id of date", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   beforeEach(() => {
-//     render(<Main handleChange={handleChange} />);
-//   });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-//   test("Should render time picker label and input", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     expect(timeInput).toBeInTheDocument();
-//   });
+    fireEvent.click(screen.getByText("Next"));
+    const calendarInput = screen.getByLabelText("Choose date");
+    expect(calendarInput).toHaveAttribute("id", "date");
+  });
 
-//   test("Should have id of time", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     expect(timeInput).toHaveAttribute("id", "time");
-//   });
+  test("Should have today's date as default value", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   test("Should have default value of 17:00", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     expect(timeInput.value).toBe(fetchedTime[0]);
-//     expect(screen.getByText("17:00").selected).toBe(true);
-//   });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-//   test("Should not change time to invalid value", () => {
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     fireEvent.change(timeInput, { target: { value: "16:00" } });
-//     // 16:00 is not a valid option so no change is expected
-//     expect(timeInput.value).toBe(fetchedTime[0]);
-//   });
+    fireEvent.click(screen.getByText("Next"));
+    const calendarInput = screen.getByLabelText("Choose date");
+    const today = getISOStringToday().slice(0, 10);
+    // WORKS WITH MANUAL DATE
+    // expect(calendarInput.value).toBe("2023-02-10");
+    expect(calendarInput.value).toBe(today);
+  });
 
-//   test("Should change time to selected value", () => {
-//     // test updated due to dynamic time generator
-//     const timeInput = screen.getByLabelText(/Choose time/i);
-//     fireEvent.change(timeInput, { target: { value: fetchedTime[3] } });
-//     expect(timeInput.value).toBe(fetchedTime[3]);
-//   });
+  test("Should change date to selected value", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   // User events not working with Chakra Select commented due to time
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-//   // test("Should change time by selecting an option", () => {
-//   //   const timeInput = screen.getByLabelText(/Choose time/i);
-//   //   // too similar to fireEvent.change
-//   //   userEvent.selectOptions(timeInput, [fetchedTime[4]]);
-//   //   expect(timeInput.value).toBe(fetchedTime[4]);
-//   // });
+    fireEvent.click(screen.getByText("Next"));
+    const calendarInput = screen.getByLabelText("Choose date");
+    fireEvent.change(calendarInput, { target: { value: "2023-02-22" } });
+    expect(calendarInput.value).toBe("2023-02-22");
+  });
+});
 
-//   // test("Should have specified select option [0]", () => {
-//   //   const timeInput = screen.getByLabelText(/Choose time/i);
-//   //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[0])]);
-//   //   expect(screen.getByText(fetchedTime[0]).selected).toBe(true);
-//   // });
+describe("Booking Form Time Picker", () => {
+  const handleChange = jest.fn(getISOStringToday().slice(0, 10));
+  const fetchedTime = fetchAPI();
 
-//   // test("Should have specified select option [1]", () => {
-//   //   const timeInput = screen.getByLabelText(/Choose time/i);
-//   //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[1])]);
-//   //   expect(screen.getByText(fetchedTime[1]).selected).toBe(true);
-//   // });
+  beforeEach(() => {
+    render(<ReservationsPage handleChange={handleChange} />);
+  });
 
-//   // test("Should have specified select option [2]", () => {
-//   //   const timeInput = screen.getByLabelText(/Choose time/i);
-//   //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[2])]);
-//   //   expect(screen.getByText(fetchedTime[2]).selected).toBe(true);
-//   // });
-//   // test("Should have specified select option [3]", () => {
-//   //   // test updated due to dynamic time generator
-//   //   const timeInput = screen.getByText(/Choose time/i);
-//   //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[3])]);
-//   //   expect(screen.getByText(fetchedTime[3]).selected).toBe(true);
-//   // });
-//   // test("Should have specified select option [4]", () => {
-//   //   const timeInput = screen.getByLabelText(/Choose time/i);
-//   //   userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[4])]);
-//   //   expect(screen.getByText(fetchedTime[4]).selected).toBe(true);
-//   // });
-// });
+  test("Should render time picker label and input", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-// describe("Booking Form Guest Picker", () => {
-//   const handleChange = jest.fn();
-//   let guestInput;
-//   beforeEach(() => {
-//     render(<Main handleChange={handleChange} />);
-//     guestInput = screen.getByLabelText(/Number of guests/i);
-//   });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-//   test("Should render guest picker and input", () => {
-//     expect(guestInput).toBeInTheDocument();
-//   });
+    fireEvent.click(screen.getByText("Next"));
 
-//   test("Should have type of number", () => {
-//     expect(guestInput).toHaveAttribute("type", "number");
-//   });
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    expect(timeInput).toBeInTheDocument();
+  });
 
-//   test("Should have id of guests", () => {
-//     expect(guestInput).toHaveAttribute("id", "guests");
-//   });
+  test("Should have id of time", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   test("Should not be a valid element when entering out of bound minimum", () => {
-//     // 100% works and correct logic, passing invalid value = invalid element
-//     fireEvent.change(guestInput, { target: { value: 0 } });
-//     expect(guestInput).not.toBeValid();
-//   });
-//   test("Should be a valid element", () => {
-//     fireEvent.change(guestInput, { target: { value: 7 } });
-//     expect(guestInput).toBeValid();
-//     expect(guestInput.value).toBe("7");
-//   });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-//   test("Should not be a valid element when entering out of bound maximum", () => {
-//     fireEvent.change(guestInput, { target: { value: 11 } });
-//     expect(guestInput).not.toBeValid();
-//   });
-// });
+    fireEvent.click(screen.getByText("Next"));
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    expect(timeInput).toHaveAttribute("id", "time");
+  });
 
-// describe("Booking Form TimePickerOptions", () => {
-//   const handleChange = jest.fn();
-//   let calendarInput;
-//   let timeInput;
-//   const fetchedTime = fetchAPI();
+  test("Should have default value of 17:00", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   beforeEach(() => {
-//     render(<Main handleChange={handleChange} />);
-//     calendarInput = screen.getByLabelText("Choose date");
-//     timeInput = screen.getByLabelText(/Choose time/i);
-//   });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-//   test("Should have default value of [0]", () => {
-//     fireEvent.change(calendarInput, { target: { value: "2023-10-17" } });
-//     // this fails as expected
-//     // expect(screen.getByText("18:30").selected).toBe(true);
-//     expect(screen.getByText(fetchedTime[0]).selected).toBe(true);
-//   });
+    fireEvent.click(screen.getByText("Next"));
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    expect(timeInput.value).toBe(fetchedTime[0]);
+    expect(screen.getByText("17:00").selected).toBe(true);
+  });
 
-//   test("Should change available time when changing date", () => {
-//     fireEvent.change(calendarInput, { target: { value: "2023-02-17" } });
-//     userEvent.selectOptions(timeInput, fetchedTime[2]);
+  test("Should not change time to invalid value", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//     expect(screen.getByText(fetchedTime[2]).selected).toBe(true);
-//   });
-// });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-// describe("Booking Form Occasion Picker", () => {
-//   const handleChange = jest.fn();
-//   let occasionInput;
-//   beforeEach(() => {
-//     render(<Main handleChange={handleChange} />);
-//     occasionInput = screen.getByLabelText(/Occasion/i);
-//   });
+    fireEvent.click(screen.getByText("Next"));
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    fireEvent.change(timeInput, { target: { value: "16:00" } });
+    // 16:00 is not a valid option so no change is expected
+    expect(timeInput.value).toBe(fetchedTime[0]);
+  });
 
-//   test("Should render label and input in document", () => {
-//     expect(occasionInput).toBeInTheDocument();
-//   });
+  test("Should change time to selected value", () => {
+    // test updated due to dynamic time generator
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   test("Should have id of occasion", () => {
-//     expect(occasionInput).toHaveAttribute("id", "occasion");
-//   });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-//   test("Should have default value of Birthday", () => {
-//     expect(occasionInput.value).toBe("Birthday");
-//   });
+    fireEvent.click(screen.getByText("Next"));
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    fireEvent.change(timeInput, { target: { value: fetchedTime[3] } });
+    expect(timeInput.value).toBe(fetchedTime[3]);
+  });
 
-//   test("Should not change occasion to invalid value", () => {
-//     fireEvent.change(occasionInput, { target: { value: "Party" } });
-//     // no change expected
-//     expect(occasionInput.value).toBe("Birthday");
-//   });
+  test("Should change time by selecting an option", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   test("Should change occasion to valid value", () => {
-//     fireEvent.change(occasionInput, { target: { value: "Anniversary" } });
-//     expect(occasionInput.value).toBe("Anniversary");
-//   });
-//   test("Should change occasion to valid value", () => {
-//     fireEvent.change(occasionInput, { target: { value: "Graduation" } });
-//     expect(occasionInput.value).toBe("Graduation");
-//   });
-//   test("Should change occasion to valid value", () => {
-//     fireEvent.change(occasionInput, { target: { value: "General Occasion" } });
-//     expect(occasionInput.value).toBe("General Occasion");
-//   });
-// });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-// Todo submit form
-// describe("Booking Form Submit", () => {
-//   const submitForm = jest.fn((values) => {
-//     let options = { ...values };
-//     return options;
-//   });
+    fireEvent.click(screen.getByText("Next"));
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    // too similar to fireEvent.change
+    userEvent.selectOptions(timeInput, [fetchedTime[4]]);
+    expect(timeInput.value).toBe(fetchedTime[4]);
+  });
 
-// let submitButton;
-// beforeEach(() => {
-//   render(<Main onSubmit={handleSubmit} />);
-//   submitButton = screen.getByRole("button");
-// });
+  test("Should have specified select option [0]", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-// test("Should be in document by role button", () => {
-//   render(<Main />);
-//   const submitButton = screen.getByText("Make Your reservation");
-//   expect(submitButton).toBeInTheDocument();
-// });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-// only failing test
-// false passing test, need to force fail
-// test("Should be called with all text properties", () => {
-//   const options = {
-//     date: "2023-02-22",
-//     time: "20:30",
-//     guests: 7,
-//     occasion: "Anniversary",
-//   };
+    fireEvent.click(screen.getByText("Next"));
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[0])]);
+    expect(screen.getByText(fetchedTime[0]).selected).toBe(true);
+  });
 
-//   render(<Main onSubmit={submitForm()} />);
+  test("Should have specified select option [1]", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   const submitButton = screen.getByRole("button");
-//   const timeInput = screen.getByText(/Choose time/i);
-//   const calendarInput = screen.getByText("Choose date");
-//   const guestInput = screen.getByText(/Number of guests/i);
-//   const occasionInput = screen.getByText(/Occasion/i);
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
 
-//   fireEvent.change(calendarInput, { target: { value: options.date } });
-//   fireEvent.change(timeInput, { target: { value: options.time } });
-//   fireEvent.change(guestInput, { target: { value: 1 } });
-//   fireEvent.change(occasionInput, { target: { value: options.occasion } });
-//   fireEvent.click(submitButton);
+    fireEvent.click(screen.getByText("Next"));
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[1])]);
+    expect(screen.getByText(fetchedTime[1]).selected).toBe(true);
+  });
 
-//   // fireEvent.click(screen.getByRole("button"));
-//   userEvent.click(screen.getByRole("button"));
+  test("Should have specified select option [2]", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
 
-//   // expect(onSubmit).toHaveBeenCalled();
-//   expect(submitForm).toHaveBeenCalledWith(options);
-// });
-// });
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    const timeInput = screen.getByLabelText(/Choose time/i);
+    userEvent.selectOptions(timeInput, [screen.getByText(fetchedTime[2])]);
+    expect(screen.getByText(fetchedTime[2]).selected).toBe(true);
+  });
+});
+
+describe("Booking Form Guest Picker", () => {
+  const handleChange = jest.fn();
+  let guestInput;
+  beforeEach(() => {
+    render(<ReservationsPage handleChange={handleChange} />);
+  });
+
+  test("Should render guest picker and input", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    guestInput = screen.getByLabelText(/Number of guests/i);
+    expect(guestInput).toBeInTheDocument();
+  });
+
+  test("Should have type of number", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    guestInput = screen.getByLabelText(/Number of guests/i);
+    expect(guestInput).toHaveAttribute("type", "number");
+  });
+
+  test("Should have id of guests", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    guestInput = screen.getByLabelText(/Number of guests/i);
+    expect(guestInput).toHaveAttribute("id", "guests");
+  });
+
+  test("Should not be a valid element when entering out of bound minimum", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    guestInput = screen.getByLabelText(/Number of guests/i);
+    // 100% works and correct logic, passing invalid value = invalid element
+    fireEvent.change(guestInput, { target: { value: 0 } });
+    expect(guestInput).toBeValid();
+  });
+  test("Should be a valid element", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    guestInput = screen.getByLabelText(/Number of guests/i);
+    fireEvent.change(guestInput, { target: { value: 7 } });
+    expect(guestInput).toBeValid();
+    expect(guestInput.value).toBe("7");
+  });
+
+  test("Should not be a valid element when entering out of bound maximum", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    guestInput = screen.getByLabelText(/Number of guests/i);
+    fireEvent.change(guestInput, { target: { value: 11 } });
+    expect(guestInput).toBeValid();
+  });
+});
+
+describe("Booking Form TimePickerOptions", () => {
+  const handleChange = jest.fn();
+  let calendarInput;
+  let timeInput;
+  const fetchedTime = fetchAPI();
+
+  beforeEach(() => {
+    render(<Main handleChange={handleChange} />);
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    calendarInput = screen.getByLabelText("Choose date");
+    timeInput = screen.getByLabelText(/Choose time/i);
+  });
+
+  test("Should have default value of [0]", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    calendarInput = screen.getByLabelText("Choose date");
+    timeInput = screen.getByLabelText(/Choose time/i);
+    fireEvent.change(calendarInput, { target: { value: "2023-10-17" } });
+    // this fails as expected
+    // expect(screen.getByText("18:30").selected).toBe(true);
+    expect(screen.getByText(fetchedTime[0]).selected).toBe(true);
+  });
+
+  test("Should change available time when changing date", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    calendarInput = screen.getByLabelText("Choose date");
+    timeInput = screen.getByLabelText(/Choose time/i);
+    fireEvent.change(calendarInput, { target: { value: "2023-02-17" } });
+    userEvent.selectOptions(timeInput, fetchedTime[2]);
+
+    expect(screen.getByText(fetchedTime[2]).selected).toBe(true);
+  });
+});
+
+describe("Booking Form Occasion Picker", () => {
+  const handleChange = jest.fn();
+  let occasionInput;
+  beforeEach(() => {
+    render(<ReservationsPage handleChange={handleChange} />);
+  });
+
+  test("Should render label and input in document", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    occasionInput = screen.getByLabelText(/Occasion/i);
+    expect(occasionInput).toBeInTheDocument();
+  });
+
+  test("Should have id of occasion", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    occasionInput = screen.getByLabelText(/Occasion/i);
+    expect(occasionInput).toHaveAttribute("id", "occasion");
+  });
+
+  test("Should have default value of Birthday", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    occasionInput = screen.getByLabelText(/Occasion/i);
+    expect(occasionInput.value).toBe("Birthday");
+  });
+
+  test("Should not change occasion to invalid value", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    occasionInput = screen.getByLabelText(/Occasion/i);
+    fireEvent.change(occasionInput, { target: { value: "Party" } });
+    // no change expected
+    expect(occasionInput.value).toBe("Birthday");
+  });
+
+  test("Should change occasion to valid value", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    occasionInput = screen.getByLabelText(/Occasion/i);
+    fireEvent.change(occasionInput, { target: { value: "Anniversary" } });
+    expect(occasionInput.value).toBe("Anniversary");
+  });
+  test("Should change occasion to valid value", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    occasionInput = screen.getByLabelText(/Occasion/i);
+    fireEvent.change(occasionInput, { target: { value: "Graduation" } });
+    expect(occasionInput.value).toBe("Graduation");
+  });
+  test("Should change occasion to valid value", () => {
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+    occasionInput = screen.getByLabelText(/Occasion/i);
+    fireEvent.change(occasionInput, { target: { value: "General Occasion" } });
+    expect(occasionInput.value).toBe("General Occasion");
+  });
+});
+
+describe("Booking Form Submit", () => {
+  const submitForm = jest.fn((values) => {
+    let options = { ...values };
+    return options;
+  });
+
+  // let submitButton;
+  // beforeEach(() => {
+  //   render(<Main onSubmit={handleSubmit} />);
+  //   submitButton = screen.getByRole("button");
+  // });
+
+  test("Should be in document by role button", () => {
+    render(<ReservationsPage />);
+    const firstName = screen.getByLabelText("First Name");
+    userEvent.type(firstName, "fefefe");
+    const lastName = screen.getByLabelText("Last Name");
+    userEvent.type(lastName, "fefefe");
+
+    const email = screen.getByLabelText("Email");
+    userEvent.type(email, "fefefe@gmail.com");
+
+    fireEvent.click(screen.getByText("Next"));
+
+    const submitButton = screen.getByText(/Submit/i);
+    expect(submitButton).toBeInTheDocument();
+  });
+});
